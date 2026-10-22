@@ -1,0 +1,90 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24
+      - name: Validate release tag and versions
+        id: version
+        run: node scripts/release-version.mjs
+
+  checks:
+    needs: validate
+    uses: ./.github/workflows/ci.yml
+
+  release:
+    needs: [validate, checks]
+    runs-on: windows-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+    env:
+      RELEASE_VERSION: ${{ needs.validate.outputs.version }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: rustup default stable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm notices
+      - name: Build Windows x64 installer
+        run: pnpm tauri build --target x86_64-pc-windows-msvc --bundles nsis -- --locked
+      - name: Package installer, portable files and checksums
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $releaseRoot = 'src-tauri/target/x86_64-pc-windows-msvc/release'
+          New-Item -ItemType Directory -Path release-assets, portable | Out-Null
+          Copy-Item "$releaseRoot/bangumi-manager.exe" portable/
+          Copy-Item LICENSE, THIRD_PARTY_NOTICES.txt portable/
+          Compress-Archive -Path portable/* -DestinationPath "release-assets/Bangumi-Manager_${env:RELEASE_VERSION}_windows-x64_portable.zip"
+          $installers = @(Get-ChildItem "$releaseRoot/bundle/nsis/*.exe")
+          if ($installers.Count -ne 1) { throw 'Expected exactly one NSIS installer' }
+          Copy-Item $installers[0].FullName release-assets/
+          $checksums = Get-ChildItem release-assets -File | Sort-Object Name | ForEach-Object {
+            "{0}  {1}" -f (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant(), $_.Name
+          }
+          $checksums | Set-Content release-assets/SHA256SUMS.txt -Encoding utf8NoBOM
+      - name: Publish release after all assets are uploaded
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $tag = "v$env:RELEASE_VERSION"
+          $existing = gh release view $tag --json isDraft 2>$null
+          if ($LASTEXITCODE -eq 0) {
+            if (!(($existing | ConvertFrom-Json).isDraft)) {
+              throw "Release $tag is already published; refusing to replace its assets"
+            }
+          } else {
+            gh release create $tag --verify-tag --draft --title "Bangumi Manager $tag" --generate-notes
+            if ($LASTEXITCODE -ne 0) { throw 'Could not create draft release' }
+          }
+          $assets = @(Get-ChildItem release-assets -File | ForEach-Object { $_.FullName })
+          gh release upload $tag @assets --clobber
+          if ($LASTEXITCODE -ne 0) { throw 'Could not upload release assets; draft retained for retry' }
+          gh release edit $tag --draft=false --latest
+          if ($LASTEXITCODE -ne 0) { throw 'Could not publish release' }

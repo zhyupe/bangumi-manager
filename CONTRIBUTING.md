@@ -22,7 +22,7 @@ pnpm test:e2e --workers=4
 
 Browser tests use Microsoft Edge and mocked Tauri commands. Rust tests use temporary directories for real file operations. If your environment configures a proxy, include `localhost` and `127.0.0.1` in `NO_PROXY` so local mock-server tests can connect directly. Tests requiring a live provider, SMB share, or ffprobe are opt-in; read the corresponding test's environment variables before enabling it. Do not commit credentials, real media titles, or provider responses containing personal library information.
 
-Before a release build, increment the application version consistently in `package.json`, `src-tauri/Cargo.toml`, the application's entry in `src-tauri/Cargo.lock`, and `src-tauri/tauri.conf.json`.
+Before a release build, increment the application version consistently in `package.json`, `src-tauri/Cargo.toml`, the application's entry in `src-tauri/Cargo.lock`, and any explicit version in `src-tauri/tauri.conf.json` (the default configuration reads `package.json`).
 
 ```powershell
 pnpm notices
@@ -30,6 +30,12 @@ pnpm tauri build --no-bundle
 ```
 
 The portable executable is produced under `src-tauri/target/release/`. Distribute it with `LICENSE` and `THIRD_PARTY_NOTICES.txt`, and provide the corresponding source under the project's license. Omit `--no-bundle` to build the configured Windows installer. Regenerate third-party notices whenever dependency locks change. The notice generator inventories installed frontend dependencies and the Windows Rust dependency graph, including build/test components.
+
+### Automated GitHub releases
+
+Push a `v<version>` tag matching the committed application version, for example `git tag v0.3.0` followed by `git push origin v0.3.0`. The Release workflow validates version consistency, runs the Windows checks, then builds the Windows x64 NSIS installer and a portable ZIP containing the executable and license notices. Both downloads and `SHA256SUMS.txt` are uploaded before the draft release becomes public.
+
+For a failed run, use **Re-run failed jobs**, or manually run **Release** against the same tag. Upload failures leave a draft that can be retried. Published assets are never overwritten; publish a new version for subsequent changes. Release publishing uses the built-in `GITHUB_TOKEN` with `contents: write` only in the release job. No personal token is required. Windows code signing is not configured.
 
 ## Frontend structure
 
