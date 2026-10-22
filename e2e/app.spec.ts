@@ -3666,6 +3666,7 @@ for (const mode of ['create', 'view', 'execute']) {
     await expect(dialog).toContainText('1 项已匹配、1 项未匹配');
     if (mode === 'create') await page.screenshot({path:'test-results/partial-match-confirmation.png', animations:'disabled'});
     await dialog.getByRole('button', {name: '取消', exact: true}).click();
+    await expect(dialog).toHaveCount(0);
     expect(await page.evaluate(() => (window as any).__calls.filter((c:any) => c.command === 'create_plan').length)).toBe(0);
     await expect(page.getByLabel(`选择 ${second}`, {exact:true})).toBeChecked();
     await action.click();
