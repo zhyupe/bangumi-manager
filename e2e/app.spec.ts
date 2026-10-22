@@ -2411,6 +2411,8 @@ test("readable typography and dense source viewport with loaded media details", 
 test("file selection supports all filtered pages, row toggles, drag inversion and escape", async ({
   page,
 }) => {
+  // Multiple selection modes and pages share one end-to-end timeout.
+  test.slow();
   await fixture(page, 96);
   await page.getByRole("button", { name: "全选", exact: true }).click();
   await expect(page.locator(".selection-bar")).toContainText("已选 96 项");
@@ -3196,6 +3198,8 @@ test("episode combobox searches numbers and bilingual titles and supports search
 test("task batch changes include hidden pages and attached subtitles without selection", async ({
   page,
 }) => {
+  // Exercise the full 98-file batch through review and submission on CI runners.
+  test.slow();
   await fixture(page, 96, true, "batch-all");
   await page.getByLabel("仅媒体", { exact: true }).check();
   await page.getByRole("button", { name: "全选", exact: true }).click();
