@@ -51,6 +51,10 @@ pub fn normalize(raw: &str) -> Result<PathBuf> {
     Ok(path)
 }
 pub fn key(path: &Path) -> String {
+    #[cfg(windows)]
+    let expanded = expand_short_path(path);
+    #[cfg(windows)]
+    let path = expanded.as_deref().unwrap_or(path);
     let s = display(path)
         .replace('\\', "/")
         .trim_end_matches('/')
@@ -60,6 +64,37 @@ pub fn key(path: &Path) -> String {
     } else {
         s
     }
+}
+#[cfg(windows)]
+fn expand_short_path(path: &Path) -> Option<PathBuf> {
+    use std::os::windows::ffi::{OsStrExt, OsStringExt};
+    use windows_sys::Win32::Storage::FileSystem::GetLongPathNameW;
+
+    // Expand Windows-generated 8.3 aliases without resolving file symlinks.
+    // Ordinary paths retain the cheap lexical comparison, including offline shares.
+    if !path.is_absolute() || !path.as_os_str().encode_wide().any(|c| c == b'~' as u16) {
+        return None;
+    }
+    for ancestor in path.ancestors() {
+        let input: Vec<u16> = ancestor.as_os_str().encode_wide().chain(Some(0)).collect();
+        let mut buffer = vec![0; input.len()];
+        let mut len = unsafe {
+            GetLongPathNameW(input.as_ptr(), buffer.as_mut_ptr(), buffer.len() as u32)
+        };
+        if len as usize >= buffer.len() {
+            buffer.resize(len as usize, 0);
+            len = unsafe {
+                GetLongPathNameW(input.as_ptr(), buffer.as_mut_ptr(), buffer.len() as u32)
+            };
+        }
+        if len > 0 && (len as usize) < buffer.len() {
+            // A planned destination may not exist yet; expand its existing prefix.
+            let mut expanded = PathBuf::from(std::ffi::OsString::from_wide(&buffer[..len as usize]));
+            expanded.push(path.strip_prefix(ancestor).ok()?);
+            return Some(expanded);
+        }
+    }
+    None
 }
 pub fn contained(path: &Path, root: &Path) -> bool {
     let p = key(path);
@@ -285,6 +320,43 @@ pub fn commit_no_replace(source: &Path, target: &Path) -> Result<()> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[cfg(windows)]
+    #[test]
+    fn short_path_keys_match_long_names_before_and_after_file_creation() {
+        use std::os::windows::ffi::{OsStrExt, OsStringExt};
+        use windows_sys::Win32::Storage::FileSystem::GetShortPathNameW;
+
+        let dir = tempfile::Builder::new().prefix("fictional-long-path-").tempdir().unwrap();
+        let long = fs::canonicalize(dir.path()).unwrap();
+        let input: Vec<u16> = long.as_os_str().encode_wide().chain(Some(0)).collect();
+        let mut buffer = vec![0; 32768];
+        let len = unsafe {
+            GetShortPathNameW(input.as_ptr(), buffer.as_mut_ptr(), buffer.len() as u32)
+        };
+        assert!(len > 0 && (len as usize) < buffer.len());
+        let short = PathBuf::from(std::ffi::OsString::from_wide(&buffer[..len as usize]));
+        if !short.as_os_str().encode_wide().any(|c| c == b'~' as u16) {
+            eprintln!("8.3 aliases are disabled on the test volume");
+            return;
+        }
+        assert_eq!(key(&short), key(&long));
+        let relative = Path::new("Library/Season 01/episode.mkv");
+        let expected = key(&long.join(relative));
+        assert_eq!(key(&short.join(relative)), expected);
+        assert!(contained(&long.join(relative), &short));
+        assert!(!contained(&long.with_extension("other"), &short));
+        fs::create_dir_all(long.join(relative).parent().unwrap()).unwrap();
+        fs::write(long.join(relative), b"fictional media").unwrap();
+        assert_eq!(key(&short.join(relative)), expected);
+        let link = short.join("linked.mkv");
+        if std::os::windows::fs::symlink_file(long.join(relative), &link).is_ok() {
+            assert_eq!(key(&link), key(&long.join("linked.mkv")));
+            assert_ne!(key(&link), expected);
+        }
+        fs::remove_file(long.join(relative)).unwrap();
+        assert_eq!(key(&short.join(relative)), expected);
+    }
+
     #[test]
     fn long_unicode_names_fit_smb_components_without_collisions_or_lost_extensions() {
         let title = "架空演奏者、".repeat(24);

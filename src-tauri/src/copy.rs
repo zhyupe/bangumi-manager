@@ -2372,12 +2372,12 @@ mod tests {
         assert!(replacement.rows[0]
             .backups
             .iter()
-            .any(|b| b.original == second_path));
+            .any(|b| paths::key(Path::new(&b.original)) == paths::key(Path::new(&second_path))));
         assert!(replacement
             .rows
             .iter()
             .flat_map(|r| &r.backups)
-            .all(|b| b.original != first_path));
+            .all(|b| paths::key(Path::new(&b.original)) != paths::key(Path::new(&first_path))));
         assert_eq!(f.run(&replacement).state, "complete");
         assert_eq!(fs::read(&first_path).unwrap(), b"first part");
         let first_sub = Path::new(&first_path).with_extension("chs.ass");

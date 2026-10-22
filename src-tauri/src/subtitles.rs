@@ -428,8 +428,8 @@ mod tests {
         let video = f.video("Fictional Feature.mkv");
         let plan = f.plan(vec![f.mapping("Captions.zh.srt", &["1"])]).unwrap();
         assert_eq!(
-            Path::new(&plan.rows[0].target),
-            video.with_file_name("Fictional Feature.zh.srt")
+            paths::key(Path::new(&plan.rows[0].target)),
+            paths::key(&video.with_file_name("Fictional Feature.zh.srt"))
         );
         assert_eq!(f.run(&plan).unwrap().state, "complete");
     }
@@ -444,8 +444,8 @@ mod tests {
         mapping.part = 2;
         let plan = f.plan(vec![mapping]).unwrap();
         assert_eq!(
-            plan.rows[0].target,
-            paths::display(&f.folder.join("S01E01 - part2.chs.ass"))
+            paths::key(Path::new(&plan.rows[0].target)),
+            paths::key(&f.folder.join("S01E01 - part2.chs.ass"))
         );
         assert_eq!(f.run(&plan).unwrap().state, "complete");
         assert!(first.exists() && second.exists());
