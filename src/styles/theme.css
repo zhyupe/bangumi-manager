@@ -1,0 +1,65 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@custom-variant dark (&:is(.dark *));
+:root {
+  /* Prefer Simplified Chinese glyphs before Japanese CJK fallbacks. */
+  --font-ui:
+    "Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC",
+    "Hiragino Sans GB", "Noto Sans CJK SC", "Noto Sans SC", "Yu Gothic UI",
+    sans-serif;
+  --background: #fafafa;
+  --foreground: #444;
+  --card: #fff;
+  --card-foreground: #444;
+  --popover: #fff;
+  --popover-foreground: #444;
+  --primary: #f09199;
+  --primary-foreground: #4a2530;
+  --secondary: #fff0f2;
+  --secondary-foreground: #9d4055;
+  --muted: #f6f3f4;
+  --muted-foreground: #707070;
+  --accent: #fff0f2;
+  --accent-foreground: #9d4055;
+  --destructive: #b04239;
+  --border: #e9e6e7;
+  --input: #d5d0d2;
+  --ring: #b95268;
+  --radius: 0.5rem;
+}
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--font-ui);
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 14px;
+}
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground text-sm font-sans;
+  }
+}

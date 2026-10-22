@@ -1,0 +1,2808 @@
+[
+  {
+    "key": "errors.preview.changed",
+    "locale": "zh-CN",
+    "template": "文件、关联或整理规则在预览后变化，请重新生成预览并核对"
+  },
+  {
+    "key": "errors.subtitles.unsupportedKind",
+    "locale": "zh-CN",
+    "template": "字幕只能匹配到电影或剧集的视频文件"
+  },
+  {
+    "key": "errors.subtitles.missingVideo",
+    "locale": "zh-CN",
+    "template": "对应集数尚无已入库的视频文件，请先整理视频后再导入字幕"
+  },
+  {
+    "key": "errors.subtitles.multipleVersions",
+    "locale": "zh-CN",
+    "template": "对应集数存在多个视频版本，请先确认并整理版本后再导入字幕"
+  },
+  {
+    "key": "errors.subtitles.incompleteRange",
+    "locale": "zh-CN",
+    "template": "字幕必须匹配对应视频的完整集数范围"
+  },
+  {
+    "key": "errors.subtitles.videoChanged",
+    "locale": "zh-CN",
+    "template": "字幕对应的视频已变化，请重新扫描并生成计划"
+  },
+  {
+    "key": "errors.subtitles.associationChanged",
+    "locale": "zh-CN",
+    "template": "字幕对应的视频关联已变化，请重新生成计划"
+  },
+  {
+    "key": "errors.subtitles.videoImportPending",
+    "locale": "zh-CN",
+    "template": "字幕对应的视频也在本计划中整理，请先完成视频整理后再导入字幕"
+  },
+  {
+    "key": "errors.backup.replacementIncomplete",
+    "locale": "zh-CN",
+    "template": "替换尚未完整成功，保留备份"
+  },
+  {
+    "key": "errors.backup.fileChanged",
+    "locale": "zh-CN",
+    "template": "备份文件已变化，拒绝清理"
+  },
+  {
+    "key": "errors.backup.missingProof",
+    "locale": "zh-CN",
+    "template": "缺少备份校验记录"
+  },
+  {
+    "key": "errors.backup.contentMismatch",
+    "locale": "zh-CN",
+    "template": "备份内容校验失败，拒绝清理"
+  },
+  {
+    "key": "errors.backup.overlapsReplacement",
+    "locale": "zh-CN",
+    "template": "备份路径与新资源重叠"
+  },
+  {
+    "key": "errors.backup.replacementChanged",
+    "locale": "zh-CN",
+    "template": "新资源已变化或不可用，保留备份"
+  },
+  {
+    "key": "errors.backup.replacementContentMismatch",
+    "locale": "zh-CN",
+    "template": "新资源内容校验失败，保留备份"
+  },
+  {
+    "key": "errors.backup.taskRunning",
+    "locale": "zh-CN",
+    "template": "请等待当前任务停止后清理备份"
+  },
+  {
+    "key": "errors.backup.recordMissing",
+    "locale": "zh-CN",
+    "template": "备份记录不存在"
+  },
+  {
+    "key": "errors.organize.missingEpisode",
+    "locale": "zh-CN",
+    "template": "集数映射不存在"
+  },
+  {
+    "key": "errors.organize.disabledEpisode",
+    "locale": "zh-CN",
+    "template": "请先确认并启用对应集数"
+  },
+  {
+    "key": "errors.organize.nonconsecutiveRange",
+    "locale": "zh-CN",
+    "template": "多集文件只能映射到同一季的连续集数"
+  },
+  {
+    "key": "errors.organize.invalidSource",
+    "locale": "zh-CN",
+    "template": "无效源路径"
+  },
+  {
+    "key": "errors.organize.targetExists",
+    "locale": "zh-CN",
+    "template": "目标文件已存在"
+  },
+  {
+    "key": "errors.organize.sourceIsTarget",
+    "locale": "zh-CN",
+    "template": "源文件已经位于目标位置，请跳过此文件"
+  },
+  {
+    "key": "errors.organize.selectionRequired",
+    "locale": "zh-CN",
+    "template": "请选择文件并匹配集数"
+  },
+  {
+    "key": "errors.organize.duplicateSource",
+    "locale": "zh-CN",
+    "template": "同一个源文件不能重复加入计划"
+  },
+  {
+    "key": "errors.organize.missingWork",
+    "locale": "zh-CN",
+    "template": "本地剧集不存在"
+  },
+  {
+    "key": "errors.organize.probeRequired",
+    "locale": "zh-CN",
+    "template": "命名规则需要媒体信息，请先为此文件刷新媒体信息：{}",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.organize.targetUnbound",
+    "locale": "zh-CN",
+    "template": "目标目录已有内容，请在剧集目录中扫描并确认关联：{}",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.organize.mediaKindMismatch",
+    "locale": "zh-CN",
+    "template": "请选择与资料库类型相符的媒体文件：{}",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.organize.partialReplacement",
+    "locale": "zh-CN",
+    "template": "已有合并多集文件覆盖 S{:02}E{:02}-E{:02}，不能仅替换其中部分集数。请为完整集数生成合并文件映射，或先人工整理该文件：{}",
+    "parameters": [
+      "season",
+      "startEpisode",
+      "endEpisode",
+      "path"
+    ]
+  },
+  {
+    "key": "errors.organize.sourceInLibrary",
+    "locale": "zh-CN",
+    "template": "所选源文件已在本地库中，请从库外选择待整理文件"
+  },
+  {
+    "key": "errors.organize.existingVersion",
+    "locale": "zh-CN",
+    "template": "同一集已有版本：{}",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.organize.indexedVersionChanged",
+    "locale": "zh-CN",
+    "template": "本地索引中的版本已变化，请重新扫描资料库后生成计划"
+  },
+  {
+    "key": "errors.organize.duplicateTarget",
+    "locale": "zh-CN",
+    "template": "本计划中多个文件映射到同一位置或集数"
+  },
+  {
+    "key": "errors.organize.shortDuration",
+    "locale": "zh-CN",
+    "template": "时长明显短于同批文件，请核对是否为 OVA、特典或错误集数"
+  },
+  {
+    "key": "errors.tasks.running",
+    "locale": "zh-CN",
+    "template": "此整理任务执行中，请先暂停任务"
+  },
+  {
+    "key": "errors.tasks.planMissing",
+    "locale": "zh-CN",
+    "template": "计划不存在"
+  },
+  {
+    "key": "errors.tasks.renameScopeLocked",
+    "locale": "zh-CN",
+    "template": "重命名任务按已确认的预览执行，请重新预览以调整范围"
+  },
+  {
+    "key": "errors.tasks.mappingLocked",
+    "locale": "zh-CN",
+    "template": "已执行的计划不能更改映射，请建立新计划"
+  },
+  {
+    "key": "errors.tasks.invalidDecision",
+    "locale": "zh-CN",
+    "template": "无效冲突决策"
+  },
+  {
+    "key": "errors.tasks.invalidOperation",
+    "locale": "zh-CN",
+    "template": "无效文件操作方式"
+  },
+  {
+    "key": "errors.tasks.replacementOperationLocked",
+    "locale": "zh-CN",
+    "template": "替换任务只能跳过或执行已预览的操作；调整文件操作请重新生成预览"
+  },
+  {
+    "key": "errors.tasks.adoptionRequiresPreview",
+    "locale": "zh-CN",
+    "template": "接纳操作仅用于替换预览"
+  },
+  {
+    "key": "errors.tasks.libraryPathsChanged",
+    "locale": "zh-CN",
+    "template": "资料库路径已在预览后修改，请重新生成计划；恢复旧任务时需使用原路径设置"
+  },
+  {
+    "key": "errors.tasks.namingChanged",
+    "locale": "zh-CN",
+    "template": "输出目录或命名规则已修改，请重新生成计划"
+  },
+  {
+    "key": "errors.tasks.missingWork",
+    "locale": "zh-CN",
+    "template": "计划关联的本地条目已不存在"
+  },
+  {
+    "key": "errors.tasks.metadataChanged",
+    "locale": "zh-CN",
+    "template": "{} 的资料或分季映射已在预览后修改，请重新生成计划",
+    "parameters": [
+      "title"
+    ]
+  },
+  {
+    "key": "errors.tasks.cancelled",
+    "locale": "zh-CN",
+    "template": "任务已取消，请重新创建整理计划"
+  },
+  {
+    "key": "errors.tasks.invalidAdoption",
+    "locale": "zh-CN",
+    "template": "无效的接纳操作"
+  },
+  {
+    "key": "errors.tasks.overlappingPaths",
+    "locale": "zh-CN",
+    "template": "目标与计划中的源文件重叠，请重新生成计划"
+  },
+  {
+    "key": "errors.tasks.unresolvedConflicts",
+    "locale": "zh-CN",
+    "template": "还有未决冲突，请选择保留、替换或跳过"
+  },
+  {
+    "key": "errors.tasks.unconfirmedWarnings",
+    "locale": "zh-CN",
+    "template": "请确认带警告的文件已人工核对"
+  },
+  {
+    "key": "errors.tasks.duplicateTarget",
+    "locale": "zh-CN",
+    "template": "仍有多个文件写入同一个目标，请只保留其中一份"
+  },
+  {
+    "key": "errors.tasks.missingSnapshot",
+    "locale": "zh-CN",
+    "template": "计划缺少条目快照"
+  },
+  {
+    "key": "errors.tasks.duplicateVersion",
+    "locale": "zh-CN",
+    "template": "同一集仍选择了多个版本，请跳过重复项"
+  },
+  {
+    "key": "errors.tasks.replaceDecisionRequired",
+    "locale": "zh-CN",
+    "template": "目标已有资源，需要明确选择替换或跳过"
+  },
+  {
+    "key": "errors.tasks.backupRootRequired",
+    "locale": "zh-CN",
+    "template": "替换前必须设置位于 Plex 资料库外的备份目录"
+  },
+  {
+    "key": "errors.tasks.backupRootMissing",
+    "locale": "zh-CN",
+    "template": "替换前必须设置位于媒体库外的备份目录"
+  },
+  {
+    "key": "errors.tasks.copyCancelled",
+    "locale": "zh-CN",
+    "template": "任务已取消；可从当前文件重新复制"
+  },
+  {
+    "key": "errors.tasks.alreadyRunning",
+    "locale": "zh-CN",
+    "template": "已有整理任务正在执行"
+  },
+  {
+    "key": "errors.tasks.alreadyEnded",
+    "locale": "zh-CN",
+    "template": "任务已完成或已取消，请重新创建整理计划"
+  },
+  {
+    "key": "errors.tasks.notRunning",
+    "locale": "zh-CN",
+    "template": "此任务当前未在执行"
+  },
+  {
+    "key": "errors.tasks.renameStarted",
+    "locale": "zh-CN",
+    "template": "重命名已开始，请暂停或继续完成任务，以保留文件恢复记录"
+  },
+  {
+    "key": "errors.tasks.stillRunning",
+    "locale": "zh-CN",
+    "template": "任务尚未停止，请等待执行结束后删除"
+  },
+  {
+    "key": "errors.tasks.renameIncomplete",
+    "locale": "zh-CN",
+    "template": "重命名尚未完成，不能删除文件恢复记录"
+  },
+  {
+    "key": "errors.tasks.cannotDeleteActive",
+    "locale": "zh-CN",
+    "template": "只能删除已完成或已取消的任务"
+  },
+  {
+    "key": "errors.backup.previewChanged",
+    "locale": "zh-CN",
+    "template": "旧资源或附件在预览后变化，请重新生成替换计划"
+  },
+  {
+    "key": "errors.backup.verificationFailed",
+    "locale": "zh-CN",
+    "template": "备份校验失败，停止替换"
+  },
+  {
+    "key": "errors.backup.originalChanged",
+    "locale": "zh-CN",
+    "template": "已有资源在预览后发生变化，请重新生成计划"
+  },
+  {
+    "key": "errors.backup.destinationMismatch",
+    "locale": "zh-CN",
+    "template": "备份路径存在不一致文件，保留原资源并停止"
+  },
+  {
+    "key": "errors.backup.copyVerificationFailed",
+    "locale": "zh-CN",
+    "template": "备份复制校验失败"
+  },
+  {
+    "key": "errors.backup.stopped",
+    "locale": "zh-CN",
+    "template": "任务已停止，旧版本和备份已保留"
+  },
+  {
+    "key": "errors.backup.oldVersionChanged",
+    "locale": "zh-CN",
+    "template": "旧版本已变化，停止替换"
+  },
+  {
+    "key": "errors.backup.removalFailed",
+    "locale": "zh-CN",
+    "template": "旧版本已备份，但无法替换 {}：{}",
+    "parameters": [
+      "path",
+      "error"
+    ]
+  },
+  {
+    "key": "errors.backup.destinationOccupied",
+    "locale": "zh-CN",
+    "template": "目标位置被其他文件占用，已保留备份和临时文件"
+  },
+  {
+    "key": "errors.backup.missingCheckpoint",
+    "locale": "zh-CN",
+    "template": "备份路径存在无检查点文件，停止替换"
+  },
+  {
+    "key": "errors.backup.commitFailed",
+    "locale": "zh-CN",
+    "template": "无法提交远端备份：{e}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.transfer.targetChanged",
+    "locale": "zh-CN",
+    "template": "目标在预览后发生变化，请重新生成计划"
+  },
+  {
+    "key": "errors.transfer.movedSizeMismatch",
+    "locale": "zh-CN",
+    "template": "已移动目标文件大小与记录不一致：{}（记录 {} 字节，当前 {} 字节）",
+    "parameters": [
+      "path",
+      "expected",
+      "actual"
+    ]
+  },
+  {
+    "key": "errors.transfer.backupsUnconfirmed",
+    "locale": "zh-CN",
+    "template": "无法确认替换备份已完成，不能仅凭文件大小接纳目标"
+  },
+  {
+    "key": "errors.transfer.replacementContentMismatch",
+    "locale": "zh-CN",
+    "template": "替换目标内容与检查点不一致"
+  },
+  {
+    "key": "errors.transfer.missingMoveProof",
+    "locale": "zh-CN",
+    "template": "替换任务缺少有效移动检查点"
+  },
+  {
+    "key": "errors.transfer.invalidMoveProof",
+    "locale": "zh-CN",
+    "template": "无法确认替换目标与移动检查点一致"
+  },
+  {
+    "key": "errors.transfer.missingContentProof",
+    "locale": "zh-CN",
+    "template": "替换任务缺少内容校验记录"
+  },
+  {
+    "key": "errors.transfer.unknownRemoteSource",
+    "locale": "zh-CN",
+    "template": "无法确认远端移动源文件状态"
+  },
+  {
+    "key": "errors.transfer.sourceSizeChanged",
+    "locale": "zh-CN",
+    "template": "源文件大小在预览后发生变化，请重新生成计划"
+  },
+  {
+    "key": "errors.transfer.replacementChanged",
+    "locale": "zh-CN",
+    "template": "替代文件已变化，请重新生成替换计划"
+  },
+  {
+    "key": "errors.transfer.replacementChangedBeforeLock",
+    "locale": "zh-CN",
+    "template": "替代文件在加锁前发生变化，请重新生成预览"
+  },
+  {
+    "key": "errors.transfer.moveCheckpointMismatch",
+    "locale": "zh-CN",
+    "template": "远端源文件大小与移动检查点不一致"
+  },
+  {
+    "key": "errors.transfer.sourceChangedBeforeLock",
+    "locale": "zh-CN",
+    "template": "源文件大小在加锁前发生变化"
+  },
+  {
+    "key": "errors.transfer.movedSizeChanged",
+    "locale": "zh-CN",
+    "template": "远端移动后文件大小与记录不一致"
+  },
+  {
+    "key": "errors.transfer.movedHashMismatch",
+    "locale": "zh-CN",
+    "template": "移动后 SHA-256 校验失败"
+  },
+  {
+    "key": "errors.transfer.remoteMoveFailed",
+    "locale": "zh-CN",
+    "template": "远端移动失败，源文件已保留：{e}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.transfer.remoteCommitFailed",
+    "locale": "zh-CN",
+    "template": "无法提交远端文件：{e}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.transfer.committedSizeMismatch",
+    "locale": "zh-CN",
+    "template": "远端提交后文件大小与记录不一致"
+  },
+  {
+    "key": "errors.transfer.symlinkTargetChanged",
+    "locale": "zh-CN",
+    "template": "软链接指向已变化，停止操作"
+  },
+  {
+    "key": "errors.transfer.destinationIsLink",
+    "locale": "zh-CN",
+    "template": "目标被替换为链接，停止操作"
+  },
+  {
+    "key": "errors.transfer.destinationVerificationFailed",
+    "locale": "zh-CN",
+    "template": "目标校验失败，已保留源文件"
+  },
+  {
+    "key": "errors.transfer.sourceChangedDuringMove",
+    "locale": "zh-CN",
+    "template": "源文件在移动期间发生变化，已保留源文件与目标文件"
+  },
+  {
+    "key": "errors.transfer.pausedBeforeDeletion",
+    "locale": "zh-CN",
+    "template": "任务已暂停，源文件尚未删除"
+  },
+  {
+    "key": "errors.transfer.sourceDeletionFailed",
+    "locale": "zh-CN",
+    "template": "目标已校验，但无法删除源文件；重试将继续完成移动：{e}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.transfer.sourceStatusUnknown",
+    "locale": "zh-CN",
+    "template": "无法确认移动源文件状态：{e}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.transfer.missingSnapshot",
+    "locale": "zh-CN",
+    "template": "条目快照不存在"
+  },
+  {
+    "key": "errors.transfer.adoptedTargetChanged",
+    "locale": "zh-CN",
+    "template": "已在目标位置的新文件发生变化，请重新预览"
+  },
+  {
+    "key": "errors.transfer.pausedDuringAdoption",
+    "locale": "zh-CN",
+    "template": "任务已暂停，备份和新文件均保留"
+  },
+  {
+    "key": "errors.transfer.adoptionSourceChanged",
+    "locale": "zh-CN",
+    "template": "接纳期间新文件发生变化"
+  },
+  {
+    "key": "errors.transfer.replacementPreviewChanged",
+    "locale": "zh-CN",
+    "template": "替代文件在预览后发生变化，请重新生成预览"
+  },
+  {
+    "key": "errors.transfer.sourceIsLink",
+    "locale": "zh-CN",
+    "template": "源文件是链接或重解析点，请选择原始文件"
+  },
+  {
+    "key": "errors.transfer.sourcePreviewChanged",
+    "locale": "zh-CN",
+    "template": "源文件在预览后发生变化，请重新扫描并生成计划"
+  },
+  {
+    "key": "errors.transfer.createDirectoryFailed",
+    "locale": "zh-CN",
+    "template": "无法创建目标目录：{e}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.transfer.hardlinkFailed",
+    "locale": "zh-CN",
+    "template": "无法创建硬链接（源和目标需位于同一文件系统，Samba 共享需支持）：{e}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.transfer.copySizeMismatch",
+    "locale": "zh-CN",
+    "template": "复制大小或源文件状态发生变化，未提交目标文件"
+  },
+  {
+    "key": "errors.transfer.hashMismatch",
+    "locale": "zh-CN",
+    "template": "SHA-256 校验失败，未提交目标文件"
+  },
+  {
+    "key": "errors.transfer.stopped",
+    "locale": "zh-CN",
+    "template": "任务已停止，临时文件已保留"
+  },
+  {
+    "key": "errors.transfer.cancelled",
+    "locale": "zh-CN",
+    "template": "任务已取消；备份与临时文件已保留"
+  },
+  {
+    "key": "errors.transfer.inspectSourceDirectoryFailed",
+    "locale": "zh-CN",
+    "template": "无法检查源目录：{}：{error}",
+    "parameters": [
+      "path",
+      "error"
+    ]
+  },
+  {
+    "key": "errors.transfer.removeSourceDirectoryFailed",
+    "locale": "zh-CN",
+    "template": "无法清理空源目录，已保留：{}：{error}",
+    "parameters": [
+      "path",
+      "error"
+    ]
+  },
+  {
+    "key": "errors.transfer.reportTargetExists",
+    "locale": "zh-CN",
+    "template": "请选一个尚不存在的 JSON 文件：{e}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.queue.restarted",
+    "locale": "zh-CN",
+    "template": "应用已重启，请确认后继续队列"
+  },
+  {
+    "key": "errors.diagnostics.invalidTiming",
+    "locale": "zh-CN",
+    "template": "无效的耗时记录"
+  },
+  {
+    "key": "errors.diagnostics.writeFailed",
+    "locale": "zh-CN",
+    "template": "日志写入失败：{e}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.tasks.cancelAction",
+    "locale": "zh-CN",
+    "template": "取消"
+  },
+  {
+    "key": "errors.tasks.pauseAction",
+    "locale": "zh-CN",
+    "template": "暂停"
+  },
+  {
+    "key": "errors.paths.parentNotDirectory",
+    "locale": "zh-CN",
+    "template": "路径的父级不是目录，无法在文件管理器中打开"
+  },
+  {
+    "key": "errors.paths.inaccessible",
+    "locale": "zh-CN",
+    "template": "无法访问路径：{error}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.paths.ancestorsUnavailable",
+    "locale": "zh-CN",
+    "template": "路径及其父目录均不可用，请检查磁盘或网络共享连接"
+  },
+  {
+    "key": "errors.library.taskRunning",
+    "locale": "zh-CN",
+    "template": "复制任务执行中，请先暂停任务"
+  },
+  {
+    "key": "errors.library.renameInProgress",
+    "locale": "zh-CN",
+    "template": "请先继续完成重命名任务，再修改资料或扫描资料库"
+  },
+  {
+    "key": "errors.episodeGroups.unsupportedSource",
+    "locale": "zh-CN",
+    "template": "剧集组仅适用于 TMDB 剧集"
+  },
+  {
+    "key": "errors.library.workMissing",
+    "locale": "zh-CN",
+    "template": "本地条目不存在"
+  },
+  {
+    "key": "errors.library.immutableDirectoryOrKind",
+    "locale": "zh-CN",
+    "template": "已有条目的目录和类型不可直接更改；请通过目录绑定功能关联已有目录"
+  },
+  {
+    "key": "errors.paths.openFailed",
+    "locale": "zh-CN",
+    "template": "无法打开文件管理器：{e}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.metadata.conflictingDatabaseIds",
+    "locale": "zh-CN",
+    "template": "同一条目的 {provider} ID 冲突",
+    "parameters": [
+      "provider"
+    ]
+  },
+  {
+    "key": "errors.metadata.kindMismatch",
+    "locale": "zh-CN",
+    "template": "NFO 类型与已关联作品不一致"
+  },
+  {
+    "key": "errors.metadata.databaseIdMismatch",
+    "locale": "zh-CN",
+    "template": "NFO 的 {provider} ID 与已关联作品不一致",
+    "parameters": [
+      "provider"
+    ]
+  },
+  {
+    "key": "errors.metadata.artworkOutsideFolder",
+    "locale": "zh-CN",
+    "template": "图片路径超出作品目录"
+  },
+  {
+    "key": "errors.metadata.artworkTooLarge",
+    "locale": "zh-CN",
+    "template": "图片超过 10 MB"
+  },
+  {
+    "key": "errors.metadata.missingTitle",
+    "locale": "zh-CN",
+    "template": "NFO 缺少作品名称"
+  },
+  {
+    "key": "errors.metadata.ambiguousMovieTitles",
+    "locale": "zh-CN",
+    "template": "同目录中的电影 NFO 名称不同，无法确认是否属于同一作品"
+  },
+  {
+    "key": "errors.metadata.missingSeasonNumber",
+    "locale": "zh-CN",
+    "template": "season.nfo 缺少有效季号"
+  },
+  {
+    "key": "errors.metadata.invalidSeasonNumber",
+    "locale": "zh-CN",
+    "template": "季度 NFO 季号超出有效范围"
+  },
+  {
+    "key": "errors.metadata.episodeTypeMismatch",
+    "locale": "zh-CN",
+    "template": "{} 的单集 NFO 类型不正确",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.metadata.missingEpisodeSeason",
+    "locale": "zh-CN",
+    "template": "单集 NFO 缺少季号"
+  },
+  {
+    "key": "errors.metadata.missingEpisodeNumber",
+    "locale": "zh-CN",
+    "template": "单集 NFO 缺少集号"
+  },
+  {
+    "key": "errors.metadata.invalidEpisodeRange",
+    "locale": "zh-CN",
+    "template": "文件名中的合并集数范围无效"
+  },
+  {
+    "key": "errors.metadata.nonconsecutiveEpisodes",
+    "locale": "zh-CN",
+    "template": "{} 的单集 NFO 集号不连续或无效",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.metadata.filenameEpisodeConflict",
+    "locale": "zh-CN",
+    "template": "{} 的文件名与 NFO 季集号冲突",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.metadata.seasonConflict",
+    "locale": "zh-CN",
+    "template": "{} 的季号与 season.nfo 冲突",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.metadata.missingLinkedWork",
+    "locale": "zh-CN",
+    "template": "目录绑定的作品已不存在"
+  },
+  {
+    "key": "errors.metadata.ambiguousDatabaseId",
+    "locale": "zh-CN",
+    "template": "NFO ID 同时指向多个本地作品，请人工处理重复关联"
+  },
+  {
+    "key": "errors.metadata.unverifiedDuplicateTitle",
+    "locale": "zh-CN",
+    "template": "已存在同名同年的作品，但 ID 无法确认一致，请人工关联"
+  },
+  {
+    "key": "errors.metadata.episodeMappingConflict",
+    "locale": "zh-CN",
+    "template": "NFO 集号与已保存的资源映射冲突"
+  },
+  {
+    "key": "errors.metadata.folderKindMismatch",
+    "locale": "zh-CN",
+    "template": "目录类型与已关联作品不一致"
+  },
+  {
+    "key": "errors.metadata.groupNumberingChanged",
+    "locale": "zh-CN",
+    "template": "剧集组编号与原路径不同，保留原 NFO，请重新整理：{}",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.metadata.episodeNumberingChanged",
+    "locale": "zh-CN",
+    "template": "季集编号已更改，保留旧路径的 NFO，重新整理文件后再更新：{}",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.metadata.unmanagedFile",
+    "locale": "zh-CN",
+    "template": "已有元数据未由本应用管理，已保留：{}；移开该文件后可重试",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.metadata.posterDownloadFailed",
+    "locale": "zh-CN",
+    "template": "海报下载：{e}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.musicBrainz.contactRequired",
+    "locale": "zh-CN",
+    "template": "请在设置中填写 MusicBrainz 联系地址（项目网址或邮箱）"
+  },
+  {
+    "key": "errors.musicBrainz.invalidId",
+    "locale": "zh-CN",
+    "template": "MusicBrainz ID 必须是有效的 UUID"
+  },
+  {
+    "key": "errors.musicBrainz.wrongEntity",
+    "locale": "zh-CN",
+    "template": "请选择发行版本或专辑组链接，不能导入艺术家或单条录音"
+  },
+  {
+    "key": "errors.musicBrainz.invalidLink",
+    "locale": "zh-CN",
+    "template": "请输入发行版本 MBID，或 MusicBrainz 的 release / release-group 链接"
+  },
+  {
+    "key": "errors.musicBrainz.missingTitle",
+    "locale": "zh-CN",
+    "template": "MusicBrainz 发行版本缺少标题"
+  },
+  {
+    "key": "errors.musicBrainz.searchTooBroad",
+    "locale": "zh-CN",
+    "template": "搜索范围过大，请缩小关键词范围"
+  },
+  {
+    "key": "errors.musicBrainz.invalidReleaseList",
+    "locale": "zh-CN",
+    "template": "MusicBrainz 返回了无效的发行版本列表"
+  },
+  {
+    "key": "errors.musicBrainz.invalidReleaseCount",
+    "locale": "zh-CN",
+    "template": "MusicBrainz 返回的版本数量无效"
+  },
+  {
+    "key": "errors.musicBrainz.specificReleaseRequired",
+    "locale": "zh-CN",
+    "template": "请先从专辑组中选择具体发行版本，再导入音轨"
+  },
+  {
+    "key": "errors.musicBrainz.missingDiscs",
+    "locale": "zh-CN",
+    "template": "发行版本缺少碟片信息，请刷新后重试"
+  },
+  {
+    "key": "errors.musicBrainz.invalidDiscNumber",
+    "locale": "zh-CN",
+    "template": "发行版本的碟片编号无效"
+  },
+  {
+    "key": "errors.musicBrainz.duplicateDiscs",
+    "locale": "zh-CN",
+    "template": "发行版本包含重复碟片编号"
+  },
+  {
+    "key": "errors.musicBrainz.incompleteTracks",
+    "locale": "zh-CN",
+    "template": "发行版本的音轨列表不完整，请刷新后重试"
+  },
+  {
+    "key": "errors.musicBrainz.trackCountMismatch",
+    "locale": "zh-CN",
+    "template": "发行版本的音轨数量不一致，请刷新后重试"
+  },
+  {
+    "key": "errors.musicBrainz.invalidTrackPosition",
+    "locale": "zh-CN",
+    "template": "音轨序号无效"
+  },
+  {
+    "key": "errors.musicBrainz.duplicateTrackPositions",
+    "locale": "zh-CN",
+    "template": "同一碟片中存在重复音轨序号"
+  },
+  {
+    "key": "errors.musicBrainz.duplicateTrackIds",
+    "locale": "zh-CN",
+    "template": "发行版本包含重复的音轨 ID"
+  },
+  {
+    "key": "errors.musicBrainz.missingTrackTitle",
+    "locale": "zh-CN",
+    "template": "发行版本中存在缺少标题的音轨"
+  },
+  {
+    "key": "errors.musicBrainz.noImportableTracks",
+    "locale": "zh-CN",
+    "template": "此发行版本没有可导入的音轨，请核对碟片或选择其他版本"
+  },
+  {
+    "key": "errors.naming.templateTooLong",
+    "locale": "zh-CN",
+    "template": "命名模板过长"
+  },
+  {
+    "key": "errors.naming.missingEpisode",
+    "locale": "zh-CN",
+    "template": "缺少集数映射"
+  },
+  {
+    "key": "errors.naming.templateError",
+    "locale": "zh-CN",
+    "template": "命名模板：{e}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.naming.pathTooLong",
+    "locale": "zh-CN",
+    "template": "模板生成的路径过长"
+  },
+  {
+    "key": "errors.naming.invalidStructure",
+    "locale": "zh-CN",
+    "template": "模板必须生成「作品目录/文件名」，不能包含绝对路径、空目录或 .."
+  },
+  {
+    "key": "errors.naming.missingExtension",
+    "locale": "zh-CN",
+    "template": "模板必须保留 {{fileExt}} 扩展名"
+  },
+  {
+    "key": "errors.naming.missingEpisodeMarkerLegacy",
+    "locale": "zh-CN",
+    "template": "剧集文件名必须包含 {{season_episode}}，以保留 Plex 集号"
+  },
+  {
+    "key": "errors.naming.missingEpisodeMarker",
+    "locale": "zh-CN",
+    "template": "剧集文件名必须包含 {{season_episode}}，以保留季集编号"
+  },
+  {
+    "key": "errors.naming.missingTrackPrefix",
+    "locale": "zh-CN",
+    "template": "音轨文件名必须以 {{episode}} 开始"
+  },
+  {
+    "key": "errors.naming.missingTitleFolder",
+    "locale": "zh-CN",
+    "template": "缺少作品目录"
+  },
+  {
+    "key": "errors.nfo.invalidProviderId",
+    "locale": "zh-CN",
+    "template": "无效的 {provider} ID：{value}",
+    "parameters": [
+      "provider",
+      "value"
+    ]
+  },
+  {
+    "key": "errors.nfo.invalidImdbId",
+    "locale": "zh-CN",
+    "template": "无效的 imdb ID：{value}",
+    "parameters": [
+      "value"
+    ]
+  },
+  {
+    "key": "errors.nfo.conflictingIds",
+    "locale": "zh-CN",
+    "template": "NFO 中的 {provider} ID 冲突：{old} / {value}",
+    "parameters": [
+      "provider",
+      "previous",
+      "value"
+    ]
+  },
+  {
+    "key": "errors.nfo.invalidXml",
+    "locale": "zh-CN",
+    "template": "NFO XML 无效：{e}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.nfo.complexXml",
+    "locale": "zh-CN",
+    "template": "NFO XML 过于复杂"
+  },
+  {
+    "key": "errors.nfo.mismatchedTags",
+    "locale": "zh-CN",
+    "template": "NFO XML 标签未配对"
+  },
+  {
+    "key": "errors.nfo.contentOutsideRoot",
+    "locale": "zh-CN",
+    "template": "NFO 根节点外含有无效内容"
+  },
+  {
+    "key": "errors.nfo.cdataOutsideElement",
+    "locale": "zh-CN",
+    "template": "NFO CDATA 不在节点内"
+  },
+  {
+    "key": "errors.nfo.entityOutsideElement",
+    "locale": "zh-CN",
+    "template": "NFO 实体不在节点内"
+  },
+  {
+    "key": "errors.nfo.externalEntities",
+    "locale": "zh-CN",
+    "template": "NFO 不支持 DTD 或外部实体"
+  },
+  {
+    "key": "errors.nfo.incompleteXml",
+    "locale": "zh-CN",
+    "template": "NFO XML 不完整"
+  },
+  {
+    "key": "errors.nfo.tooLarge",
+    "locale": "zh-CN",
+    "template": "NFO 超过 4 MB"
+  },
+  {
+    "key": "errors.nfo.nonUtf8",
+    "locale": "zh-CN",
+    "template": "NFO 不是 UTF-8 编码"
+  },
+  {
+    "key": "errors.nfo.wrongRoot",
+    "locale": "zh-CN",
+    "template": "{} 应为 <{tag}> 格式",
+    "parameters": [
+      "path",
+      "tag"
+    ]
+  },
+  {
+    "key": "errors.nfo.ambiguousFilename",
+    "locale": "zh-CN",
+    "template": "存在多个同名 NFO，请先消除大小写歧义"
+  },
+  {
+    "key": "errors.nfo.missingFile",
+    "locale": "zh-CN",
+    "template": "NFO 已不存在"
+  },
+  {
+    "key": "errors.nfo.missingMedia",
+    "locale": "zh-CN",
+    "template": "媒体文件已不存在"
+  },
+  {
+    "key": "errors.nfo.ambiguousLocalTitle",
+    "locale": "zh-CN",
+    "template": "NFO ID 指向多个本地作品，请先核对关联"
+  },
+  {
+    "key": "errors.nfo.episodeGroupReview",
+    "locale": "zh-CN",
+    "template": "该作品已切换剧集组，请在匹配设置中核对集数"
+  },
+  {
+    "key": "errors.nfo.missingParent",
+    "locale": "zh-CN",
+    "template": "媒体文件没有父目录"
+  },
+  {
+    "key": "errors.nfo.notScanned",
+    "locale": "zh-CN",
+    "template": "文件不在扫描列表中，请重新扫描"
+  },
+  {
+    "key": "errors.nfo.mediaChanged",
+    "locale": "zh-CN",
+    "template": "媒体文件已变化，请重新扫描"
+  },
+  {
+    "key": "errors.nfo.mediaKindMismatch",
+    "locale": "zh-CN",
+    "template": "NFO 类型与媒体文件不一致"
+  },
+  {
+    "key": "errors.nfo.titleIdRequired",
+    "locale": "zh-CN",
+    "template": "单集/音轨 ID 不能作为作品 ID，需要同目录或上级目录的 {root_name}",
+    "parameters": [
+      "rootName"
+    ]
+  },
+  {
+    "key": "errors.nfo.unsupportedRoot",
+    "locale": "zh-CN",
+    "template": "同名 NFO 需为电影、单集或音轨资料"
+  },
+  {
+    "key": "errors.nfo.missingDatabaseId",
+    "locale": "zh-CN",
+    "template": "NFO 中没有可识别的作品数据库 ID"
+  },
+  {
+    "key": "errors.nfo.metadataUnreadable",
+    "locale": "zh-CN",
+    "template": "无法读取 NFO 资料"
+  },
+  {
+    "key": "errors.nfo.changedDuringRead",
+    "locale": "zh-CN",
+    "template": "NFO 读取期间发生变化，请重新检测"
+  },
+  {
+    "key": "errors.nfo.noMatchingEpisodes",
+    "locale": "zh-CN",
+    "template": "NFO 中没有可匹配的集数或音轨"
+  },
+  {
+    "key": "errors.nfo.matchingFileMissing",
+    "locale": "zh-CN",
+    "template": "同名 NFO 已不存在"
+  },
+  {
+    "key": "errors.nfo.previewChanged",
+    "locale": "zh-CN",
+    "template": "媒体或 NFO 已变化，请重新检测并确认"
+  },
+  {
+    "key": "errors.nfo.ambiguousEpisode",
+    "locale": "zh-CN",
+    "template": "本地集数存在歧义或已禁用，请手动匹配"
+  },
+  {
+    "key": "errors.nfo.queueBusy",
+    "locale": "zh-CN",
+    "template": "整理队列正忙，请稍后重试"
+  },
+  {
+    "key": "errors.nfo.syncWhileRunning",
+    "locale": "zh-CN",
+    "template": "请先暂停整理任务再同步作品资料"
+  },
+  {
+    "key": "errors.nfo.scanBusy",
+    "locale": "zh-CN",
+    "template": "媒体库正在扫描，请稍后重试"
+  },
+  {
+    "key": "errors.paths.empty",
+    "locale": "zh-CN",
+    "template": "路径不能为空"
+  },
+  {
+    "key": "errors.paths.smbCredentials",
+    "locale": "zh-CN",
+    "template": "SMB 地址请使用已登录的 Windows 共享，不在路径中填写账号或端口"
+  },
+  {
+    "key": "errors.paths.missingServer",
+    "locale": "zh-CN",
+    "template": "SMB 地址缺少服务器"
+  },
+  {
+    "key": "errors.paths.mountRequired",
+    "locale": "zh-CN",
+    "template": "此系统请先挂载 SMB 共享，再填写本地挂载路径"
+  },
+  {
+    "key": "errors.paths.invalidFileUrl",
+    "locale": "zh-CN",
+    "template": "无效的文件地址"
+  },
+  {
+    "key": "errors.paths.absoluteRequired",
+    "locale": "zh-CN",
+    "template": "请输入绝对路径，例如 D:\\Anime 或 \\\\server\\share\\Anime"
+  },
+  {
+    "key": "errors.paths.traversal",
+    "locale": "zh-CN",
+    "template": "路径不能包含 .."
+  },
+  {
+    "key": "errors.paths.missingParent",
+    "locale": "zh-CN",
+    "template": "找不到路径的父目录"
+  },
+  {
+    "key": "errors.paths.invalid",
+    "locale": "zh-CN",
+    "template": "无效的路径"
+  },
+  {
+    "key": "errors.paths.outsideLibrary",
+    "locale": "zh-CN",
+    "template": "目标路径越出资料库或指向根目录"
+  },
+  {
+    "key": "errors.paths.invalidParent",
+    "locale": "zh-CN",
+    "template": "无效父目录"
+  },
+  {
+    "key": "errors.paths.invalidFilename",
+    "locale": "zh-CN",
+    "template": "无效文件名"
+  },
+  {
+    "key": "errors.paths.symlinkFailed",
+    "locale": "zh-CN",
+    "template": "无法创建软链接（Windows 需要开发者模式或相应权限，共享也需支持）：{e}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.paths.notRegular",
+    "locale": "zh-CN",
+    "template": "不是普通文件：{}",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.paths.destinationLink",
+    "locale": "zh-CN",
+    "template": "目标是链接或重解析点，需人工处理：{}",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.paths.unknownDestination",
+    "locale": "zh-CN",
+    "template": "无法确认目标状态：{}：{}",
+    "parameters": [
+      "path",
+      "error"
+    ]
+  },
+  {
+    "key": "errors.settings.invalidOperation",
+    "locale": "zh-CN",
+    "template": "无效默认整理方式"
+  },
+  {
+    "key": "errors.settings.invalidLanguage",
+    "locale": "zh-CN",
+    "template": "语言请填写 BCP 47 代码，例如 zh-CN、ja-JP"
+  },
+  {
+    "key": "errors.settings.overlappingRoots",
+    "locale": "zh-CN",
+    "template": "剧集、电影、附加文件和备份目录必须相互独立，不能包含彼此"
+  },
+  {
+    "key": "errors.settings.resolvedRootsOverlap",
+    "locale": "zh-CN",
+    "template": "目录解析到相同或嵌套位置"
+  },
+  {
+    "key": "errors.providers.missingWork",
+    "locale": "zh-CN",
+    "template": "作品不存在"
+  },
+  {
+    "key": "errors.providers.remoteBindingRequired",
+    "locale": "zh-CN",
+    "template": "此作品只有本地 NFO 资料，请先关联远程数据源"
+  },
+  {
+    "key": "errors.providers.tmdbTokenRequired",
+    "locale": "zh-CN",
+    "template": "请先在设置中填写 TMDB API Read Access Token"
+  },
+  {
+    "key": "errors.providers.musicBrainzNotFound",
+    "locale": "zh-CN",
+    "template": "HTTP 404：MusicBrainz 发行版本不存在，请核对 MBID"
+  },
+  {
+    "key": "errors.providers.remoteNotFound",
+    "locale": "zh-CN",
+    "template": "HTTP 404：远程条目不存在，请核对电影 / 剧集类型和 ID"
+  },
+  {
+    "key": "errors.providers.musicBrainzBusy",
+    "locale": "zh-CN",
+    "template": "MusicBrainz 暂时限流或服务繁忙，请稍后重试"
+  },
+  {
+    "key": "errors.providers.requestFailed",
+    "locale": "zh-CN",
+    "template": "远程请求失败，已保留其他缓存，可重试：{}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.providers.musicBrainzUnsupportedKind",
+    "locale": "zh-CN",
+    "template": "MusicBrainz 仅用于音乐专辑"
+  },
+  {
+    "key": "errors.providers.musicSourceRequired",
+    "locale": "zh-CN",
+    "template": "音乐专辑请使用 Bangumi 或 MusicBrainz 数据源"
+  },
+  {
+    "key": "errors.providers.unsupportedSource",
+    "locale": "zh-CN",
+    "template": "不支持的数据源"
+  },
+  {
+    "key": "errors.providers.invalidBangumiId",
+    "locale": "zh-CN",
+    "template": "Bangumi 条目 ID 必须为数字"
+  },
+  {
+    "key": "errors.providers.tmdbNotFound",
+    "locale": "zh-CN",
+    "template": "TMDB 条目 HTTP 404："
+  },
+  {
+    "key": "errors.providers.invalidTmdbId",
+    "locale": "zh-CN",
+    "template": "请输入数字 ID 或 TMDB 电影 / 剧集链接"
+  },
+  {
+    "key": "errors.remote.stopped",
+    "locale": "zh-CN",
+    "template": "任务已停止，远端文件与检查点已保留"
+  },
+  {
+    "key": "errors.remote.lockFailed",
+    "locale": "zh-CN",
+    "template": "无法锁定远端文件 {}：{e}",
+    "parameters": [
+      "path",
+      "error"
+    ]
+  },
+  {
+    "key": "errors.remote.createStageFailed",
+    "locale": "zh-CN",
+    "template": "无法创建远端临时文件：{e}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.remote.readInfoFailed",
+    "locale": "zh-CN",
+    "template": "无法读取远端文件信息：{}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.remote.regularFileRequired",
+    "locale": "zh-CN",
+    "template": "远端传输只接受普通文件，不跟随链接"
+  },
+  {
+    "key": "errors.remote.invalidDestination",
+    "locale": "zh-CN",
+    "template": "无效目标"
+  },
+  {
+    "key": "errors.remote.invalidDestinationName",
+    "locale": "zh-CN",
+    "template": "无效目标名称"
+  },
+  {
+    "key": "errors.remote.deleteFailed",
+    "locale": "zh-CN",
+    "template": "远端文件无法删除，原文件已保留：{}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.remote.sourceKeyFailed",
+    "locale": "zh-CN",
+    "template": "SMB 服务端复制不可用（获取源文件键失败）：{e}；未回退到本机字节流",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.remote.incompleteSourceKey",
+    "locale": "zh-CN",
+    "template": "SMB 源文件键响应不完整"
+  },
+  {
+    "key": "errors.remote.copyFailed",
+    "locale": "zh-CN",
+    "template": "SMB 服务端复制失败：{e}；服务端需支持 COPYCHUNK，跨服务器复制不回退到本机字节流",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.remote.incompleteCopy",
+    "locale": "zh-CN",
+    "template": "SMB 服务端未确认完整复制当前数据块，临时文件已保留"
+  },
+  {
+    "key": "errors.remote.flushFailed",
+    "locale": "zh-CN",
+    "template": "远端写入同步失败：{e}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.remote.fileSizeMismatch",
+    "locale": "zh-CN",
+    "template": "文件大小与记录不一致：{}（记录 {} 字节，当前 {} 字节）",
+    "parameters": [
+      "path",
+      "expected",
+      "actual"
+    ]
+  },
+  {
+    "key": "errors.remote.hashMismatch",
+    "locale": "zh-CN",
+    "template": "远端文件 SHA-256 校验失败"
+  },
+  {
+    "key": "errors.remote.sourceSizeMismatch",
+    "locale": "zh-CN",
+    "template": "源文件大小与记录不一致：{}（记录 {} 字节，当前 {} 字节）",
+    "parameters": [
+      "path",
+      "expected",
+      "actual"
+    ]
+  },
+  {
+    "key": "errors.remote.checkpointSizeMismatch",
+    "locale": "zh-CN",
+    "template": "源文件大小与远端传输检查点不一致"
+  },
+  {
+    "key": "errors.remote.timestampFailed",
+    "locale": "zh-CN",
+    "template": "无法保存远端文件时间戳：{}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.remote.copySizeMismatch",
+    "locale": "zh-CN",
+    "template": "远端复制大小与记录不一致"
+  },
+  {
+    "key": "errors.remote.copyHashMismatch",
+    "locale": "zh-CN",
+    "template": "远端复制 SHA-256 校验失败"
+  },
+  {
+    "key": "errors.rename.unboundFolder",
+    "locale": "zh-CN",
+    "template": "资源目录尚未明确关联作品，请先扫描并关联"
+  },
+  {
+    "key": "errors.rename.probeRequired",
+    "locale": "zh-CN",
+    "template": "命名规则需要媒体信息，请先探测：{}",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.rename.libraryResourceRequired",
+    "locale": "zh-CN",
+    "template": "请选择已入库资源"
+  },
+  {
+    "key": "errors.rename.unboundResource",
+    "locale": "zh-CN",
+    "template": "资源尚未关联作品和集数，请先扫描资料库"
+  },
+  {
+    "key": "errors.rename.resourceChanged",
+    "locale": "zh-CN",
+    "template": "资源已变化或不可用，请重新扫描：{raw}",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.rename.alreadyNamed",
+    "locale": "zh-CN",
+    "template": "已符合当前命名：{raw}",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.rename.sharedAttachment",
+    "locale": "zh-CN",
+    "template": "同名字幕或 NFO 被其他版本共用，请一并选择这些版本：{}",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.rename.unmatchedAttachment",
+    "locale": "zh-CN",
+    "template": "附件文件名无法匹配"
+  },
+  {
+    "key": "errors.rename.conflictingAttachment",
+    "locale": "zh-CN",
+    "template": "同一附件对应多个不同目标，请分别确认资源关联"
+  },
+  {
+    "key": "errors.rename.duplicateNames",
+    "locale": "zh-CN",
+    "template": "多个文件生成相同名称，请调整命名规则或选择范围"
+  },
+  {
+    "key": "errors.rename.occupiedTarget",
+    "locale": "zh-CN",
+    "template": "目标已被未选中的文件占用，不能覆盖"
+  },
+  {
+    "key": "errors.rename.occupiedNfo",
+    "locale": "zh-CN",
+    "template": "目标 NFO 已存在且未参与重命名：{}",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.rename.backupRootRequired",
+    "locale": "zh-CN",
+    "template": "请先设置备份目录，用于保存重命名前的 NFO"
+  },
+  {
+    "key": "errors.rename.backupRootOverlap",
+    "locale": "zh-CN",
+    "template": "备份目录必须独立于所有资料库"
+  },
+  {
+    "key": "errors.rename.previewMissing",
+    "locale": "zh-CN",
+    "template": "预览不存在，请重新生成"
+  },
+  {
+    "key": "errors.rename.noChanges",
+    "locale": "zh-CN",
+    "template": "所选资源已符合当前命名，无需重命名"
+  },
+  {
+    "key": "errors.rename.previewConflict",
+    "locale": "zh-CN",
+    "template": "重命名预览存在冲突或操作已更改，请重新预览"
+  },
+  {
+    "key": "errors.rename.duplicatePaths",
+    "locale": "zh-CN",
+    "template": "重命名路径重复"
+  },
+  {
+    "key": "errors.rename.missingSnapshot",
+    "locale": "zh-CN",
+    "template": "缺少作品快照"
+  },
+  {
+    "key": "errors.rename.missingContext",
+    "locale": "zh-CN",
+    "template": "缺少重命名上下文"
+  },
+  {
+    "key": "errors.rename.libraryChanged",
+    "locale": "zh-CN",
+    "template": "资源所在资料库已改变，请重新预览"
+  },
+  {
+    "key": "errors.rename.associationChanged",
+    "locale": "zh-CN",
+    "template": "资源目录的作品关联已变化"
+  },
+  {
+    "key": "errors.rename.fileChanged",
+    "locale": "zh-CN",
+    "template": "文件在预览后发生变化：{}",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.rename.stageOccupied",
+    "locale": "zh-CN",
+    "template": "重命名临时位置已被其他文件占用"
+  },
+  {
+    "key": "errors.rename.invalidAssociation",
+    "locale": "zh-CN",
+    "template": "资源关联已失效，请重新扫描"
+  },
+  {
+    "key": "errors.rename.previewAssociationChanged",
+    "locale": "zh-CN",
+    "template": "资源关联在预览后发生变化"
+  },
+  {
+    "key": "errors.rename.targetOccupied",
+    "locale": "zh-CN",
+    "template": "目标已被其他文件占用：{}",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.rename.targetNfoOccupied",
+    "locale": "zh-CN",
+    "template": "目标 NFO 已被其他文件占用：{}",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.rename.nfoChanged",
+    "locale": "zh-CN",
+    "template": "NFO 在预览后发生变化，请重新预览"
+  },
+  {
+    "key": "errors.rename.backupChanged",
+    "locale": "zh-CN",
+    "template": "NFO 备份发生变化，停止重命名"
+  },
+  {
+    "key": "errors.rename.backupIdentityChanged",
+    "locale": "zh-CN",
+    "template": "NFO 备份标识发生变化"
+  },
+  {
+    "key": "errors.rename.missingIdentity",
+    "locale": "zh-CN",
+    "template": "重命名检查点缺少文件标识"
+  },
+  {
+    "key": "errors.rename.identityMismatch",
+    "locale": "zh-CN",
+    "template": "文件标识或内容属性与重命名检查点不一致"
+  },
+  {
+    "key": "errors.rename.contentMismatch",
+    "locale": "zh-CN",
+    "template": "文件内容与重命名检查点不一致"
+  },
+  {
+    "key": "errors.rename.missingHash",
+    "locale": "zh-CN",
+    "template": "重命名检查点缺少内容校验"
+  },
+  {
+    "key": "errors.rename.paused",
+    "locale": "zh-CN",
+    "template": "重命名已暂停，文件和恢复记录已保留"
+  },
+  {
+    "key": "errors.rename.changedBeforeLock",
+    "locale": "zh-CN",
+    "template": "文件在加锁前发生变化"
+  },
+  {
+    "key": "errors.rename.failed",
+    "locale": "zh-CN",
+    "template": "无法重命名，文件和恢复记录已保留：{e}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.rename.sourceChanged",
+    "locale": "zh-CN",
+    "template": "源文件在执行前发生变化"
+  },
+  {
+    "key": "errors.rename.sourceChangedBeforeLock",
+    "locale": "zh-CN",
+    "template": "源文件在加锁前发生变化"
+  },
+  {
+    "key": "errors.rename.sourceChangedDuringVerification",
+    "locale": "zh-CN",
+    "template": "源文件在校验期间发生变化"
+  },
+  {
+    "key": "errors.rename.ambiguousStage",
+    "locale": "zh-CN",
+    "template": "源路径与临时路径同时存在，请保留文件并检查"
+  },
+  {
+    "key": "errors.rename.unstaged",
+    "locale": "zh-CN",
+    "template": "文件尚未安全暂存"
+  },
+  {
+    "key": "errors.resources.invalidTarget",
+    "locale": "zh-CN",
+    "template": "无效目标路径"
+  },
+  {
+    "key": "errors.resources.probeRunning",
+    "locale": "zh-CN",
+    "template": "已有媒体探测正在进行"
+  },
+  {
+    "key": "errors.resources.unregisteredLibrary",
+    "locale": "zh-CN",
+    "template": "文件不在已注册资料库内"
+  },
+  {
+    "key": "errors.resources.pathIsLink",
+    "locale": "zh-CN",
+    "template": "路径包含链接或重解析点：{}",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.resources.unbound",
+    "locale": "zh-CN",
+    "template": "资源尚未关联作品或集数，请先扫描并关联"
+  },
+  {
+    "key": "errors.resources.missingParent",
+    "locale": "zh-CN",
+    "template": "没有父目录"
+  },
+  {
+    "key": "errors.resources.sameStem",
+    "locale": "zh-CN",
+    "template": "同目录主文件名一致"
+  },
+  {
+    "key": "errors.resources.sameEpisodeRange",
+    "locale": "zh-CN",
+    "template": "同作品、同季集范围"
+  },
+  {
+    "key": "errors.resources.durationMismatch",
+    "locale": "zh-CN",
+    "template": "新旧时长差异较大，请核对版本、完整性与字幕时间轴"
+  },
+  {
+    "key": "errors.resources.lowerResolution",
+    "locale": "zh-CN",
+    "template": "新文件分辨率下降，请核对画质"
+  },
+  {
+    "key": "errors.resources.fewerTracks",
+    "locale": "zh-CN",
+    "template": "新文件的音轨或字幕轨道减少"
+  },
+  {
+    "key": "errors.resources.missingProbe",
+    "locale": "zh-CN",
+    "template": "媒体信息缺失或探测失败，请先刷新或人工核对文件"
+  },
+  {
+    "key": "errors.resources.replacementRequired",
+    "locale": "zh-CN",
+    "template": "请选择替代文件"
+  },
+  {
+    "key": "errors.resources.backupRootRequired",
+    "locale": "zh-CN",
+    "template": "请先设置旧版本备份目录"
+  },
+  {
+    "key": "errors.resources.backupRootOverlap",
+    "locale": "zh-CN",
+    "template": "备份目录必须独立于所有已注册资料库（包括旧目录）"
+  },
+  {
+    "key": "errors.resources.identicalPaths",
+    "locale": "zh-CN",
+    "template": "新旧文件不能是同一路径"
+  },
+  {
+    "key": "errors.resources.staleGroupNumbering",
+    "locale": "zh-CN",
+    "template": "此文件仍使用切换剧集组前的季集路径，请先按新分组整理后再替换资源"
+  },
+  {
+    "key": "errors.resources.oldFileChanged",
+    "locale": "zh-CN",
+    "template": "旧文件已变化，请重新扫描资料库"
+  },
+  {
+    "key": "errors.resources.emptyReplacement",
+    "locale": "zh-CN",
+    "template": "替代文件为空"
+  },
+  {
+    "key": "errors.resources.mediaKindMismatch",
+    "locale": "zh-CN",
+    "template": "新旧文件媒体类型不一致"
+  },
+  {
+    "key": "errors.resources.associationMismatch",
+    "locale": "zh-CN",
+    "template": "替代资源关联的作品或集数范围不一致"
+  },
+  {
+    "key": "errors.resources.incompleteEpisodeRange",
+    "locale": "zh-CN",
+    "template": "替代文件季集范围不一致；合并集必须完整替换"
+  },
+  {
+    "key": "errors.resources.ambiguousMergedRange",
+    "locale": "zh-CN",
+    "template": "合并集替代文件需具有明确且完整的季集范围，请先关联或在文件名中标明 SxxEyy-Ezz"
+  },
+  {
+    "key": "errors.resources.disabledEpisodeRange",
+    "locale": "zh-CN",
+    "template": "请先启用并保存完整集数范围"
+  },
+  {
+    "key": "errors.resources.occupiedTarget",
+    "locale": "zh-CN",
+    "template": "目标被其他未选中文件占用：{}",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.resources.overlappingSelection",
+    "locale": "zh-CN",
+    "template": "新旧文件在选择中重复或交叉，请分开处理"
+  },
+  {
+    "key": "errors.resources.unknownFolder",
+    "locale": "zh-CN",
+    "template": "无法确定作品实际目录，请重新扫描"
+  },
+  {
+    "key": "errors.resources.subtitleTiming",
+    "locale": "zh-CN",
+    "template": "保留原字幕，请核对时间轴：{}",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.resources.subtitlesPreserved",
+    "locale": "zh-CN",
+    "template": "原外置字幕将保留，请核对新版本时间轴"
+  },
+  {
+    "key": "errors.resources.overlappingPaths",
+    "locale": "zh-CN",
+    "template": "替换操作的源、目标或附件路径交叉，请分开处理"
+  },
+  {
+    "key": "errors.resources.unconfirmedWarnings",
+    "locale": "zh-CN",
+    "template": "请逐项核对警告"
+  },
+  {
+    "key": "errors.resources.replacementChanged",
+    "locale": "zh-CN",
+    "template": "新文件在预览后变化，请重新生成预览"
+  },
+  {
+    "key": "errors.resources.originalChanged",
+    "locale": "zh-CN",
+    "template": "旧文件或附件在预览后变化"
+  },
+  {
+    "key": "errors.resources.originalLibraryChanged",
+    "locale": "zh-CN",
+    "template": "原资源的资料库已变化，请重新预览"
+  },
+  {
+    "key": "errors.resources.originalFolderChanged",
+    "locale": "zh-CN",
+    "template": "原资源目录的作品关联已变化，请重新预览"
+  },
+  {
+    "key": "errors.resources.originalAssociationChanged",
+    "locale": "zh-CN",
+    "template": "原资源关联已变化或尚未扫描，请重新预览"
+  },
+  {
+    "key": "errors.resources.replacementAssociationChanged",
+    "locale": "zh-CN",
+    "template": "替代文件的作品或集数关联已变化，请重新预览"
+  },
+  {
+    "key": "errors.probe.startFailed",
+    "locale": "zh-CN",
+    "template": "ffprobe 无法启动：{e}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.probe.emptyOutput",
+    "locale": "zh-CN",
+    "template": "没有 ffprobe 输出"
+  },
+  {
+    "key": "errors.probe.cancelled",
+    "locale": "zh-CN",
+    "template": "媒体探测已取消或超时，可重试"
+  },
+  {
+    "key": "errors.probe.readUnsupported",
+    "locale": "zh-CN",
+    "template": "ffprobe 无法读取此文件"
+  },
+  {
+    "key": "errors.probe.readFailed",
+    "locale": "zh-CN",
+    "template": "ffprobe 读取失败"
+  },
+  {
+    "key": "errors.probe.changed",
+    "locale": "zh-CN",
+    "template": "文件在探测期间发生变化，请重试"
+  },
+  {
+    "key": "errors.probe.noStreams",
+    "locale": "zh-CN",
+    "template": "文件没有可识别的音视频轨道"
+  },
+  {
+    "key": "errors.scan.renameIncomplete",
+    "locale": "zh-CN",
+    "template": "重命名尚未完成，请继续任务后再扫描资料库"
+  },
+  {
+    "key": "errors.scan.libraryRequired",
+    "locale": "zh-CN",
+    "template": "请先在设置中注册至少一个 Plex 资料库目录"
+  },
+  {
+    "key": "errors.scan.libraryMissing",
+    "locale": "zh-CN",
+    "template": "请先在设置中注册至少一个媒体库目录"
+  },
+  {
+    "key": "errors.scan.seriesMissing",
+    "locale": "zh-CN",
+    "template": "剧集不存在"
+  },
+  {
+    "key": "errors.scan.unregisteredFolder",
+    "locale": "zh-CN",
+    "template": "目录不在已注册的资料库内"
+  },
+  {
+    "key": "errors.scan.titleFolderRequired",
+    "locale": "zh-CN",
+    "template": "请选择分类下的作品目录"
+  },
+  {
+    "key": "errors.scan.invalidFolder",
+    "locale": "zh-CN",
+    "template": "无效目录"
+  },
+  {
+    "key": "errors.scan.unsafeFolderName",
+    "locale": "zh-CN",
+    "template": "此目录名不符合安全命名要求，请先在文件管理器修正"
+  },
+  {
+    "key": "errors.queue.taskMissing",
+    "locale": "zh-CN",
+    "template": "任务不存在"
+  },
+  {
+    "key": "errors.queue.renamePending",
+    "locale": "zh-CN",
+    "template": "请先继续完成已有重命名任务，再启动其他文件操作"
+  },
+  {
+    "key": "errors.queue.taskEnded",
+    "locale": "zh-CN",
+    "template": "任务已结束或正在取消"
+  },
+  {
+    "key": "errors.queue.overlappingResources",
+    "locale": "zh-CN",
+    "template": "文件或集数与队列中的其他任务重复：{}",
+    "parameters": [
+      "task"
+    ]
+  },
+  {
+    "key": "errors.queue.renameResumeRequired",
+    "locale": "zh-CN",
+    "template": "请先在重命名任务中继续执行，再继续后续队列"
+  },
+  {
+    "key": "errors.queue.workerFailed",
+    "locale": "zh-CN",
+    "template": "后台任务异常终止，请检查任务后重试"
+  },
+  {
+    "key": "errors.queue.paused",
+    "locale": "zh-CN",
+    "template": "任务已暂停"
+  },
+  {
+    "key": "errors.episodeGroups.disabledEpisodes",
+    "locale": "zh-CN",
+    "template": "文件包含新剧集组未收录或停用的集数，请先处理该文件关联"
+  },
+  {
+    "key": "errors.episodeGroups.unboundFile",
+    "locale": "zh-CN",
+    "template": "文件没有明确的集数关联"
+  },
+  {
+    "key": "errors.episodeGroups.nonconsecutiveMerge",
+    "locale": "zh-CN",
+    "template": "合并文件在新剧集组中不再连续，请先拆分或重新关联"
+  },
+  {
+    "key": "errors.episodeGroups.missingWork",
+    "locale": "zh-CN",
+    "template": "原作品已不存在"
+  },
+  {
+    "key": "errors.episodeGroups.multipleBindings",
+    "locale": "zh-CN",
+    "template": "资源对应多个资料源，切换剧集组前请明确文件关联"
+  },
+  {
+    "key": "errors.episodeGroups.mixedSources",
+    "locale": "zh-CN",
+    "template": "合并文件的集数跨越多个资料源，无法安全切换剧集组"
+  },
+  {
+    "key": "errors.episodeGroups.associationChanged",
+    "locale": "zh-CN",
+    "template": "文件或集数关联已变化，请重新确认资源关联"
+  },
+  {
+    "key": "errors.episodeGroups.ambiguousEpisode",
+    "locale": "zh-CN",
+    "template": "{} 的集数关联不明确，请先确认作品与集数",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.episodeGroups.fileChanged",
+    "locale": "zh-CN",
+    "template": "剧集组切换后文件发生变化，请重新确认资源关联"
+  },
+  {
+    "key": "errors.providers.numericIdRequired",
+    "locale": "zh-CN",
+    "template": "资料库 ID 必须为数字"
+  },
+  {
+    "key": "errors.providers.unsupportedBangumiKind",
+    "locale": "zh-CN",
+    "template": "请选择 Bangumi 动画、音乐或三次元条目"
+  },
+  {
+    "key": "errors.providers.invalidBangumiEpisodes",
+    "locale": "zh-CN",
+    "template": "Bangumi 返回了无效的集数列表"
+  },
+  {
+    "key": "errors.providers.paginationFailed",
+    "locale": "zh-CN",
+    "template": "集数分页异常，请重试"
+  },
+  {
+    "key": "errors.providers.tmdbMusicUnsupported",
+    "locale": "zh-CN",
+    "template": "TMDB 不支持音乐专辑"
+  },
+  {
+    "key": "errors.providers.tmdbError",
+    "locale": "zh-CN",
+    "template": "TMDB 条目 {e}",
+    "parameters": [
+      "error"
+    ]
+  },
+  {
+    "key": "errors.providers.invalidKind",
+    "locale": "zh-CN",
+    "template": "媒体类型错误"
+  },
+  {
+    "key": "errors.providers.musicReleaseRequired",
+    "locale": "zh-CN",
+    "template": "请选择包含音轨的 MusicBrainz 发行版本，并以音乐专辑入库"
+  },
+  {
+    "key": "errors.providers.alreadyLinked",
+    "locale": "zh-CN",
+    "template": "此远程条目已关联到 {}，请选择该本地条目；需要改季号时在剧集目录编辑",
+    "parameters": [
+      "title"
+    ]
+  },
+  {
+    "key": "errors.providers.titleRequired",
+    "locale": "zh-CN",
+    "template": "请输入主剧名"
+  },
+  {
+    "key": "errors.providers.mixedLocalKinds",
+    "locale": "zh-CN",
+    "template": "电影与剧集不能绑定到同一个本地条目；请新建电影并设置所属系列"
+  },
+  {
+    "key": "errors.providers.groupConfirmationRequired",
+    "locale": "zh-CN",
+    "template": "切换剧集组会更改季集编号，请先核对并确认映射"
+  },
+  {
+    "key": "errors.providers.unfinishedTasks",
+    "locale": "zh-CN",
+    "template": "此作品还有未结束的整理任务，请先取消或完成，再切换剧集组并重新生成计划"
+  },
+  {
+    "key": "errors.providers.invalidWork",
+    "locale": "zh-CN",
+    "template": "请输入有效剧名和类型"
+  },
+  {
+    "key": "errors.providers.unsafeFolderName",
+    "locale": "zh-CN",
+    "template": "目录名含有不支持的字符"
+  },
+  {
+    "key": "errors.providers.invalidCategory",
+    "locale": "zh-CN",
+    "template": "分类必须是单个有效目录名"
+  },
+  {
+    "key": "errors.providers.numericTmdbIdRequired",
+    "locale": "zh-CN",
+    "template": "TMDB ID 必须为数字"
+  },
+  {
+    "key": "errors.providers.invalidEpisodeNumbersLegacy",
+    "locale": "zh-CN",
+    "template": "已启用集数需要有效的 Plex 季号和集号"
+  },
+  {
+    "key": "errors.providers.invalidEpisodeNumbers",
+    "locale": "zh-CN",
+    "template": "已启用集数需要有效的本地季号和集号"
+  },
+  {
+    "key": "errors.parts.invalidNumber",
+    "locale": "zh-CN",
+    "template": "Part 编号须为 1–8，且只能用于单集或电影；完整文件请选择不分段"
+  },
+  {
+    "key": "errors.parts.mixedWholeAndParts",
+    "locale": "zh-CN",
+    "template": "同一集已有完整文件或分段文件，不能在整理时混用；请先核对现有资源"
+  },
+  {
+    "key": "errors.parts.replacementMismatch",
+    "locale": "zh-CN",
+    "template": "替代文件的 Part 编号与原文件不一致"
+  },
+  {
+    "key": "errors.parts.subtitleNumberRequired",
+    "locale": "zh-CN",
+    "template": "对应视频已分段，请为字幕选择对应的 Part 编号"
+  },
+  {
+    "key": "errors.parts.missingSubtitleVideo",
+    "locale": "zh-CN",
+    "template": "未找到对应 Part 的已入库视频，请先整理该分段"
+  },
+  {
+    "key": "errors.scan.folderOwnershipMismatch",
+    "locale": "zh-CN",
+    "template": "目录关联与所选作品不一致，请重新扫描并确认关联"
+  },
+  {
+    "key": "errors.scan.missingFolderAssociation",
+    "locale": "zh-CN",
+    "template": "资源目录关联缺失，请重新扫描并确认关联"
+  },
+  {
+    "key": "errors.scan.folderUnavailable",
+    "locale": "zh-CN",
+    "template": "相关作品目录不可用，请检查连接或重新扫描：{value1}",
+    "parameters": [
+      "path"
+    ]
+  },
+  {
+    "key": "errors.library.deleted",
+    "locale": "zh-CN",
+    "template": "作品已删除，请重新添加或重新生成整理计划"
+  },
+  {
+    "key": "errors.library.hasResources",
+    "locale": "zh-CN",
+    "template": "此作品已有关联资源，不能删除；离线资源也会保留关联"
+  },
+  {
+    "key": "errors.library.hasFolder",
+    "locale": "zh-CN",
+    "template": "此作品已关联资料库目录，不能删除，请先核对目录关联"
+  },
+  {
+    "key": "errors.library.hasTasks",
+    "locale": "zh-CN",
+    "template": "此作品有未完成的任务，请先取消或完成任务后再删除"
+  },
+  {
+    "key": "errors.library.hasRecoveryRecords",
+    "locale": "zh-CN",
+    "template": "此作品仍有已执行的文件操作或恢复记录，不能删除"
+  },
+  {
+    "key": "errors.library.referencedByOtherWorks",
+    "locale": "zh-CN",
+    "template": "此作品仍被其他作品关联，请先解除关联后再删除"
+  },
+  {
+    "key": "errors.subtitles.invalidPattern",
+    "locale": "zh-CN",
+    "template": "字幕语言正则无效，请检查表达式"
+  },
+  {
+    "key": "errors.subtitles.unsupportedPattern",
+    "locale": "zh-CN",
+    "template": "字幕语言正则无效：不支持特殊分组或超过 512 字符的表达式"
+  },
+  {
+    "key": "errors.subtitles.missingCapture",
+    "locale": "zh-CN",
+    "template": "字幕语言正则必须包含第一捕获组，用于保留语言标记"
+  },
+  {
+    "key": "errors.backup.originalReappeared",
+    "locale": "zh-CN",
+    "template": "旧版本路径重新出现文件，停止替换"
+  },
+  {
+    "key": "errors.backup.checkpointMismatch",
+    "locale": "zh-CN",
+    "template": "远端移动备份与检查点不一致，停止替换"
+  },
+  {
+    "key": "errors.library.missingAssociation",
+    "locale": "zh-CN",
+    "template": "关联条目不存在"
+  },
+  {
+    "key": "errors.cue.decisionsLocked",
+    "locale": "en",
+    "template": "CUE tasks use confirmed split decisions; preview again to change them"
+  },
+  {
+    "key": "errors.cue.virtualGap",
+    "locale": "en",
+    "template": "Declared gaps without stored audio are not synthesized"
+  },
+  {
+    "key": "errors.cue.firstTrackPregap",
+    "locale": "en",
+    "template": "Audio before the first track is retained at its beginning"
+  },
+  {
+    "key": "errors.cue.lossyFrameCuts",
+    "locale": "en",
+    "template": "Lossy audio is copied at codec frame boundaries; gapless playback is not guaranteed"
+  },
+  {
+    "key": "errors.cue.durationMismatch",
+    "locale": "en",
+    "template": "Database track duration differs from CUE"
+  },
+  {
+    "key": "errors.cue.trackCountMismatch",
+    "locale": "en",
+    "template": "CUE and database track counts differ; confirm manual mapping"
+  },
+  {
+    "key": "errors.cue.tooLarge",
+    "locale": "en",
+    "template": "CUE exceeds 4 MiB"
+  },
+  {
+    "key": "errors.cue.unknownEncoding",
+    "locale": "en",
+    "template": "CUE text encoding is unknown; choose GB18030 or Shift-JIS"
+  },
+  {
+    "key": "errors.cue.unsupportedEncoding",
+    "locale": "en",
+    "template": "Unsupported CUE text encoding"
+  },
+  {
+    "key": "errors.cue.invalidEncoding",
+    "locale": "en",
+    "template": "CUE contains invalid characters for this encoding"
+  },
+  {
+    "key": "errors.cue.unclosedQuote",
+    "locale": "en",
+    "template": "Unclosed CUE quotation"
+  },
+  {
+    "key": "errors.cue.invalidTime",
+    "locale": "en",
+    "template": "Invalid CUE time"
+  },
+  {
+    "key": "errors.cue.sampleOffsetOverflow",
+    "locale": "en",
+    "template": "CUE sample offset overflow"
+  },
+  {
+    "key": "errors.cue.missingArgument",
+    "locale": "en",
+    "template": "Missing CUE argument"
+  },
+  {
+    "key": "errors.cue.unsupportedFile",
+    "locale": "en",
+    "template": "Only audio FILE entries are supported"
+  },
+  {
+    "key": "errors.cue.repeatedFile",
+    "locale": "en",
+    "template": "Repeated CUE FILE entries are unsupported"
+  },
+  {
+    "key": "errors.cue.invalidTrackNumber",
+    "locale": "en",
+    "template": "Invalid CUE track number"
+  },
+  {
+    "key": "errors.cue.dataTracks",
+    "locale": "en",
+    "template": "Data tracks are unsupported"
+  },
+  {
+    "key": "errors.cue.trackSequence",
+    "locale": "en",
+    "template": "CUE track numbers must be consecutive within 1–99"
+  },
+  {
+    "key": "errors.cue.indexBeforeTrack",
+    "locale": "en",
+    "template": "INDEX before TRACK"
+  },
+  {
+    "key": "errors.cue.indexBeforeFileTrack",
+    "locale": "en",
+    "template": "INDEX before TRACK in this FILE"
+  },
+  {
+    "key": "errors.cue.unsupportedIndex",
+    "locale": "en",
+    "template": "Only INDEX 00 and 01 are supported"
+  },
+  {
+    "key": "errors.cue.duplicateIndex",
+    "locale": "en",
+    "template": "Duplicate CUE index"
+  },
+  {
+    "key": "errors.cue.gapBeforeTrack",
+    "locale": "en",
+    "template": "Gap before TRACK"
+  },
+  {
+    "key": "errors.cue.isrcBeforeTrack",
+    "locale": "en",
+    "template": "ISRC before TRACK"
+  },
+  {
+    "key": "errors.cue.unsupportedFlags",
+    "locale": "en",
+    "template": "Pre-emphasis and unsupported audio flags require external processing"
+  },
+  {
+    "key": "errors.cue.firstTrack",
+    "locale": "en",
+    "template": "CUE must begin with audio track 1"
+  },
+  {
+    "key": "errors.cue.missingIndex",
+    "locale": "en",
+    "template": "Each CUE track requires INDEX 01"
+  },
+  {
+    "key": "errors.cue.invalidPregapIndex",
+    "locale": "en",
+    "template": "INDEX 00 follows INDEX 01"
+  },
+  {
+    "key": "errors.cue.overlappingTracks",
+    "locale": "en",
+    "template": "CUE track boundaries overlap or are out of order"
+  },
+  {
+    "key": "errors.cue.fileWithoutTracks",
+    "locale": "en",
+    "template": "CUE contains an audio file without tracks"
+  },
+  {
+    "key": "errors.cue.missingStreams",
+    "locale": "en",
+    "template": "Audio streams missing"
+  },
+  {
+    "key": "errors.cue.multipleStreams",
+    "locale": "en",
+    "template": "CUE requires exactly one audio stream per source"
+  },
+  {
+    "key": "errors.cue.missingSampleRate",
+    "locale": "en",
+    "template": "Audio sample rate missing"
+  },
+  {
+    "key": "errors.cue.unsupportedChannels",
+    "locale": "en",
+    "template": "Unsupported audio channel count"
+  },
+  {
+    "key": "errors.cue.unsupportedBitDepth",
+    "locale": "en",
+    "template": "Cannot preserve this source's effective bit depth"
+  },
+  {
+    "key": "errors.cue.invalidSamples",
+    "locale": "en",
+    "template": "Invalid decoded audio sample count"
+  },
+  {
+    "key": "errors.cue.analysisRunning",
+    "locale": "en",
+    "template": "A CUE analysis is already running"
+  },
+  {
+    "key": "errors.cue.cancelled",
+    "locale": "en",
+    "template": "CUE analysis cancelled"
+  },
+  {
+    "key": "errors.cue.duplicateAudio",
+    "locale": "en",
+    "template": "Multiple CUE references resolve to the same audio file"
+  },
+  {
+    "key": "errors.cue.incompatibleSources",
+    "locale": "en",
+    "template": "Multi-file CUE sources must use matching audio parameters"
+  },
+  {
+    "key": "errors.cue.indexBeyondSource",
+    "locale": "en",
+    "template": "CUE index exceeds source length"
+  },
+  {
+    "key": "errors.cue.emptyTrack",
+    "locale": "en",
+    "template": "Empty or overlapping CUE track"
+  },
+  {
+    "key": "errors.cue.lossyCrossFile",
+    "locale": "en",
+    "template": "Lossy tracks spanning files cannot be safely copied"
+  },
+  {
+    "key": "errors.cue.analysisRequired",
+    "locale": "en",
+    "template": "Analyze CUE first"
+  },
+  {
+    "key": "errors.cue.incompleteAlbum",
+    "locale": "en",
+    "template": "Confirm album title, disc and every CUE track"
+  },
+  {
+    "key": "errors.cue.missingAlbum",
+    "locale": "en",
+    "template": "Local album no longer exists"
+  },
+  {
+    "key": "errors.cue.musicRequired",
+    "locale": "en",
+    "template": "CUE requires a music album"
+  },
+  {
+    "key": "errors.cue.missingTrackTitle",
+    "locale": "en",
+    "template": "Confirm each CUE track title in order"
+  },
+  {
+    "key": "errors.cue.invalidDiscTrack",
+    "locale": "en",
+    "template": "Choose a matching track on the selected disc"
+  },
+  {
+    "key": "errors.cue.duplicateTrackMapping",
+    "locale": "en",
+    "template": "Two CUE tracks cannot map to the same album track"
+  },
+  {
+    "key": "errors.cue.collidingOutputs",
+    "locale": "en",
+    "template": "CUE output paths collide"
+  },
+  {
+    "key": "errors.cue.settingsChanged",
+    "locale": "en",
+    "template": "Audio tools or library settings changed; preview again"
+  },
+  {
+    "key": "errors.cue.albumChanged",
+    "locale": "en",
+    "template": "Album changed; preview CUE again"
+  },
+  {
+    "key": "errors.cue.albumPreviewChanged",
+    "locale": "en",
+    "template": "Album changed after CUE preview"
+  },
+  {
+    "key": "errors.cue.mappingChanged",
+    "locale": "en",
+    "template": "Track mapping changed after CUE preview"
+  },
+  {
+    "key": "errors.cue.unresolvedConflicts",
+    "locale": "en",
+    "template": "Resolve CUE conflicts and confirm warnings"
+  },
+  {
+    "key": "errors.cue.replacementRequired",
+    "locale": "en",
+    "template": "Existing CUE output requires explicit replacement or skip"
+  },
+  {
+    "key": "errors.cue.destinationChanged",
+    "locale": "en",
+    "template": "CUE destination changed; preview again"
+  },
+  {
+    "key": "errors.cue.unconfirmedOutput",
+    "locale": "en",
+    "template": "Confirm every CUE output"
+  },
+  {
+    "key": "errors.cue.emptySelection",
+    "locale": "en",
+    "template": "Select at least one CUE track"
+  },
+  {
+    "key": "errors.cue.reservedPath",
+    "locale": "en",
+    "template": "An audio source or destination is reserved by another task"
+  },
+  {
+    "key": "errors.cue.missingPacketTimestamp",
+    "locale": "en",
+    "template": "Audio packet timestamp missing"
+  },
+  {
+    "key": "errors.cue.unorderedPackets",
+    "locale": "en",
+    "template": "Audio packet timestamps are not increasing"
+  },
+  {
+    "key": "errors.cue.unsafePacketBoundary",
+    "locale": "en",
+    "template": "No safe audio packet boundary"
+  },
+  {
+    "key": "errors.cue.trackTooShort",
+    "locale": "en",
+    "template": "Track is shorter than one encoded audio frame"
+  },
+  {
+    "key": "errors.cue.missingFrameDuration",
+    "locale": "en",
+    "template": "Audio frame duration missing"
+  },
+  {
+    "key": "errors.cue.excessiveCutOffset",
+    "locale": "en",
+    "template": "Lossy cut exceeds one audio frame; use an external splitter"
+  },
+  {
+    "key": "errors.cue.incompleteDecoding",
+    "locale": "en",
+    "template": "Source decoding does not cover the planned sample range"
+  },
+  {
+    "key": "errors.cue.sampleVerificationFailed",
+    "locale": "en",
+    "template": "Lossless track sample verification failed"
+  },
+  {
+    "key": "errors.cue.unconfirmedCut",
+    "locale": "en",
+    "template": "Lossy cut confirmation missing"
+  },
+  {
+    "key": "errors.cue.packetBoundariesChanged",
+    "locale": "en",
+    "template": "Audio packet boundaries changed; preview again"
+  },
+  {
+    "key": "errors.cue.unsafePacketCopy",
+    "locale": "en",
+    "template": "Cannot verify lossless packet copying at this cut; use an external splitter"
+  },
+  {
+    "key": "errors.cue.decodeMismatch",
+    "locale": "en",
+    "template": "Independent decoding differs at the cut (codec delay or frame dependency); use an external splitter"
+  },
+  {
+    "key": "errors.cue.outputFormatMismatch",
+    "locale": "en",
+    "template": "Split audio format verification failed"
+  },
+  {
+    "key": "errors.cue.insufficientSpace",
+    "locale": "en",
+    "template": "Insufficient free space for CUE staging"
+  },
+  {
+    "key": "errors.cue.committedTrackChanged",
+    "locale": "en",
+    "template": "Committed CUE track changed"
+  },
+  {
+    "key": "errors.cue.verifiedOutputChanged",
+    "locale": "en",
+    "template": "Verified CUE output changed; recovery stopped"
+  },
+  {
+    "key": "errors.cue.stagedOutputChanged",
+    "locale": "en",
+    "template": "Staged CUE output changed before commit"
+  },
+  {
+    "key": "errors.cue.stopped",
+    "locale": "en",
+    "template": "Audio task stopped; source files were preserved"
+  },
+  {
+    "key": "errors.cue.oversizedToolOutput",
+    "locale": "en",
+    "template": "Audio analysis output exceeds its limit"
+  },
+  {
+    "key": "errors.cue.invalidFfmpeg",
+    "locale": "en",
+    "template": "Selected executable is not FFmpeg"
+  },
+  {
+    "key": "errors.cue.startToolFailed",
+    "locale": "en",
+    "template": "Cannot start audio tool"
+  },
+  {
+    "key": "errors.cue.toolFailed",
+    "locale": "en",
+    "template": "Audio tool failed"
+  },
+  {
+    "key": "errors.cue.sourceChanged",
+    "locale": "en",
+    "template": "Source changed; analyze CUE again"
+  },
+  {
+    "key": "errors.cue.unsupportedCodec",
+    "locale": "en",
+    "template": "Unsupported CUE audio codec"
+  },
+  {
+    "key": "errors.cue.explicitSourceRequired",
+    "locale": "en",
+    "template": "Choose the referenced audio file explicitly"
+  },
+  {
+    "key": "errors.cue.missingSource",
+    "locale": "en",
+    "template": "Referenced audio missing or outside CUE directory; select manually"
+  },
+  {
+    "key": "errors.cue.unsupportedDirective",
+    "locale": "en",
+    "template": "Unsupported CUE directive"
+  },
+  {
+    "key": "errors.cue.sourceChangedDuringAnalysis",
+    "locale": "en",
+    "template": "Audio source changed during analysis"
+  },
+  {
+    "key": "errors.cue.inputChanged",
+    "locale": "en",
+    "template": "CUE input changed; preview again"
+  }
+]

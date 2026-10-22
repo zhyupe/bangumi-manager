@@ -1,0 +1,26 @@
+.nfo-sync {
+  padding-block: 0.75rem;
+}
+.nfo-sync-dialog {
+  width: min(760px, calc(100vw - 32px));
+  max-width: min(760px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+}
+.nfo-sync-list {
+  max-height: 50dvh;
+  overflow-y: auto;
+}
+.nfo-sync-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.75rem;
+  padding-block: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.nfo-sync-item .path-text {
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.nfo-sync > [data-slot="select-trigger"] { margin-bottom: 8px; }

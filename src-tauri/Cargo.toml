@@ -1,0 +1,59 @@
+[package]
+name = "bangumi-manager"
+version = "0.3.0"
+description = "A Windows desktop media organizer with reviewed file operations"
+license = "GPL-3.0-only"
+repository = "https://github.com/zhyupe/bangumi-manager"
+authors = ["zhyupe"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+# The `_lib` suffix may seem redundant but it is necessary
+# to make the lib name unique and wouldn't conflict with the bin name.
+# This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
+name = "tauri_app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["protocol-asset"] }
+tauri-plugin-opener = "2"
+tauri-plugin-dialog = "2"
+tauri-plugin-single-instance = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rusqlite = { version = "0.32", features = ["bundled"] }
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "json", "rustls-tls"] }
+uuid = { version = "1", features = ["v4", "serde"] }
+regex = "1"
+quick-xml = "0.42"
+walkdir = "2"
+sha2 = "0.10"
+sha1 = "0.10"
+base64 = "0.22"
+encoding_rs = "0.8"
+hex = "0.4"
+chrono = { version = "0.4", features = ["serde"] }
+url = "2"
+percent-encoding = "2"
+minijinja = { version = "2", features = ["fuel"] }
+sys-locale = "0.3"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.59", features = ["Win32_Storage_FileSystem", "Win32_System_IO", "Wdk_Storage_FileSystem", "Win32_System_Threading"] }
+
+[dev-dependencies]
+tempfile = "3"
+
+
+# Read the optimization guideline for more details: https://tauri.app/concept/size/#cargo-configuration
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+panic = "abort"
+strip = true

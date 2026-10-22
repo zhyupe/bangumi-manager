@@ -1,0 +1,114 @@
+.library-import-preview {
+  margin-block: 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  background: var(--surface);
+}
+.library-import-heading,
+.library-import-footer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.library-import-heading p,
+.library-import-footer p {
+  margin-block: 4px;
+}
+.library-import-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 200px;
+  gap: 16px;
+  padding-block: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.library-import-row[data-skipped='true'] { opacity: .65; }
+.library-import-paths { min-width: 0; }
+.library-import-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  overflow-wrap: anywhere;
+}
+.library-import-paths > .path-text { margin-block: 4px; }
+.library-import-decisions { display: flex; flex-direction: column; gap: 6px; }
+.library-import-footer { margin-top: 14px; align-items: center; }
+.library-import-submit { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.library-import-submit .create-split-button { width: auto; min-width: 150px; }
+.library-import-warnings { margin-top: 8px; }
+.library-extra-drop {
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  padding: 24px;
+  margin-block: 20px;
+}
+.library-extra-drop p { margin-block: 8px 16px; }
+@media (max-width: 1050px) {
+  .library-import-row { grid-template-columns: minmax(0, 1fr); }
+  .library-import-decisions { flex-direction: row; flex-wrap: wrap; }
+  .library-import-decisions > [data-slot='select-trigger'] { width: auto; min-width: 160px; flex: 1; }
+}
+@media (max-width: 600px) {
+  .library-import-submit { margin-left: 0; flex-wrap: wrap; width: 100%; }
+  .library-import-submit .create-split-button { flex: 1; }
+}
+
+.library-import-cart {
+  position: fixed;
+  right: 28px;
+  bottom: 24px;
+  z-index: 30;
+  border-radius: 999px;
+  box-shadow: 0 4px 16px #0002;
+}
+[data-slot="dialog-content"].library-import-dialog {
+  width: min(820px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 48px);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.library-import-dialog .library-import-heading {
+  display: block;
+  flex: none;
+  padding: 20px 52px 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.library-import-content {
+  overflow-y: auto;
+  min-height: 0;
+  padding: 0 20px;
+}
+.library-import-dialog .library-import-row {
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+}
+.library-import-dialog .library-import-footer {
+  flex: none;
+  margin: 0;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+.library-import-operation { display: grid; gap: 6px; }
+.library-import-operation > [data-slot="select-trigger"] { min-width: 150px; }
+.library-import-operation .muted { font-size: 12px; }
+
+.extra-files { display: grid; gap: 16px; min-width: 0; padding-bottom: 80px; }
+.extra-files .selection-bar { flex-wrap: wrap; }
+.extra-files .selection-bar input { max-width: 260px; }
+.extra-file-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
+.extra-file-tile { min-width: 0; display: flex; flex-direction: column; gap: 6px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; }
+.extra-thumbnail { position: relative; height: 120px; display: grid; place-items: center; border-radius: 6px; background: var(--surface); overflow: hidden; }
+.extra-thumbnail > svg { width: 32px; height: 32px; color: var(--text-muted); }
+.extra-thumbnail > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: var(--surface); }
+.extra-file-name { white-space: normal; overflow-wrap: anywhere; text-align: left; height: auto; justify-content: flex-start; padding: 0; }
+.extra-file-tile .muted { font-size: 12px; }
+[data-slot="dialog-content"].extra-image-dialog { width: min(1000px, calc(100vw - 32px)); max-width: none; max-height: calc(100dvh - 32px); }
+.extra-image-dialog img { max-height: calc(100dvh - 140px); max-width: 100%; object-fit: contain; justify-self: center; }

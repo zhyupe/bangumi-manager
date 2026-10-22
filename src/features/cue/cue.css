@@ -1,0 +1,160 @@
+[data-slot="dialog-content"].cue-dialog {
+  width: min(1180px, calc(100vw - 32px));
+  max-width: none;
+  height: min(850px, calc(100dvh - 32px));
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+  transition-property: none;
+}
+.cue-header,
+.cue-footer {
+  padding: 16px 20px;
+  flex: none;
+}
+.cue-header {
+  border-bottom: 1px solid var(--border);
+}
+.cue-header .section-title {
+  margin-bottom: 8px;
+}
+.cue-header [data-slot="dialog-title"] {
+  margin: 0;
+}
+.cue-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  min-height: 0;
+  flex: 1;
+}
+.cue-sidebar,
+.cue-review {
+  padding: 16px;
+  overflow: auto;
+  min-width: 0;
+  min-height: 0;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cue-sidebar {
+  border-left: 1px solid var(--border);
+}
+.cue-candidate {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  height: auto;
+  white-space: normal;
+  text-align: left;
+  gap: 4px;
+}
+.cue-candidate small,
+.cue-format {
+  color: var(--muted-foreground);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.cue-format {
+  display: block;
+}
+.cue-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.cue-reference,
+.cue-output {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-wrap: anywhere;
+}
+.cue-outputs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.cue-output {
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+.cue-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+}
+.cue-footer .create-split-button {
+  width: auto;
+  min-width: 180px;
+}
+@media (max-width: 760px) {
+  .cue-columns {
+    grid-template-columns: minmax(0, 1fr) 220px;
+  }
+  .cue-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cue-processing {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  min-height: 32px;
+  flex-shrink: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+}
+.cue-processing > [data-slot="button"] {
+  flex-shrink: 0;
+}
+
+.cue-steps { display: flex; gap: 24px; margin: 16px 0 0; padding: 0; list-style: none; font-size: 13px; color: var(--muted-foreground); }
+.cue-steps li { display: flex; align-items: center; gap: 8px; }
+.cue-steps li > span { display: grid; place-items: center; width: 24px; height: 24px; border: 1px solid var(--border); border-radius: 50%; }
+.cue-steps li[aria-current="step"] { color: var(--foreground); font-weight: 600; }
+.cue-steps li[aria-current="step"] > span { background: var(--secondary); }
+.cue-step-actions { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; }
+.cue-sidebar { overflow-x: hidden; }
+.cue-sidebar > * { flex-shrink: 0; min-width: 0; }
+.cue-candidate { overflow-wrap: anywhere; width: 100%; }
+.cue-candidate > * { max-width: 100%; }
+.cue-summary { overflow-wrap: anywhere; }
+.cue-footer { gap: 16px; }
+
+.cue-source-choice { display: grid; gap: 8px; justify-items: start; }
+
+.cue-sidebar .cue-candidate[data-slot="button"] {
+  height: auto;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.cue-sidebar .cue-candidate > span,
+.cue-sidebar .cue-candidate > small {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.cue-footer-status { flex: 1; min-width: 0; font-size: 12px; }
+.cue-step-actions { flex-shrink: 0; }
+
+.cue-output-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 13px; }
+.cue-output-heading strong { flex: 1; min-width: 0; }
+.cue-output-hint { font-size: 13px; margin: 0; }
+.cue-output-backup { display: grid; gap: 4px; }
+
+.cue-summary { display: grid; gap: 12px; }
+.cue-original-files { display: grid; gap: 8px; font-size: 12px; }
+.cue-original-files summary { cursor: pointer; margin-bottom: 8px; }
+.cue-original-files .file-path { margin-top: 4px; }
+.cue-original-confirm { align-items: flex-start; font-size: 12px; line-height: 1.5; }
