@@ -61,7 +61,7 @@ jobs:
           Compress-Archive -Path portable/* -DestinationPath "release-assets/Bangumi-Manager_${env:RELEASE_VERSION}_windows-x64_portable.zip"
           $installers = @(Get-ChildItem "$releaseRoot/bundle/nsis/*.exe")
           if ($installers.Count -ne 1) { throw 'Expected exactly one NSIS installer' }
-          Copy-Item $installers[0].FullName release-assets/
+          Copy-Item $installers[0].FullName "release-assets/Bangumi-Manager_${env:RELEASE_VERSION}_windows-x64_setup.exe"
           $checksums = Get-ChildItem release-assets -File | Sort-Object Name | ForEach-Object {
             "{0}  {1}" -f (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant(), $_.Name
           }
