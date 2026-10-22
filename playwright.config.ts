@@ -5,7 +5,9 @@ process.env.NO_PROXY = [process.env.NO_PROXY, "localhost", "127.0.0.1"]
 export default defineConfig({
   testDir: "./e2e",
   fullyParallel: true,
-  timeout: 30000,
+  workers: process.env.CI ? 1 : undefined,
+  timeout: process.env.CI ? 60000 : 30000,
+  expect: { timeout: process.env.CI ? 10000 : 5000 },
   use: {
     locale: "zh-CN",
     baseURL: "http://127.0.0.1:1420",

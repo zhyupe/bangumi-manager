@@ -23,4 +23,4 @@ jobs:
       - run: pnpm check
       - run: pnpm test
       - run: cargo test --manifest-path src-tauri/Cargo.toml --locked
-      - run: pnpm test:e2e --workers=4
+      - run: pnpm test:e2e
