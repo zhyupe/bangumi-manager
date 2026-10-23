@@ -288,6 +288,8 @@ pub struct Episode {
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct Work {
     #[serde(default)]
+    pub created_at: String,
+    #[serde(default)]
     pub info: MediaInfo,
     #[serde(default)]
     pub seasons: Vec<Season>,

@@ -85,6 +85,7 @@ pub fn preview(store: &Store, request: SplitRequest) -> Result<Plan> {
                 return Err("CUE requires a music album".into());
             }
             let mut work = existing.clone().unwrap_or_else(|| Work {
+                created_at: now(),
                 id: id(),
                 kind: "music".into(),
                 ..Default::default()

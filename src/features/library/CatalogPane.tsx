@@ -11,14 +11,20 @@ import { SelectField, SelectOption } from '@/components/select-field'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { useRememberedAction } from '@/hooks/use-remembered-action'
 import type { ImportTarget } from '@/features/metadata/MediaImportDialog'
 import { t } from '@/i18n'
 import { backendMessage } from '@/i18n/backend'
 import { call } from '@/lib/api'
 import { artwork } from '@/lib/artwork'
-import { natural } from '@/lib/format'
 import type { LibraryIndex, Plan, ReplacementTarget, Run, Work } from '@/types'
-import { catalogCollection } from './catalog'
+import {
+  airingSeason,
+  catalogCollection,
+  catalogSorts,
+  sortCatalog,
+  type CatalogSort,
+} from './catalog'
 import type { LibraryDrop, SubmitMode } from './import-model'
 import { SeasonCollectionSummary } from './SeasonCollection'
 import WorkDetail from './WorkDetail'
@@ -49,6 +55,16 @@ export default function CatalogPane(props: Props) {
   const [query, setQuery] = useState(''),
     [detail, setDetail] = useState('')
   const [bindings, setBindings] = useState<Record<string, string>>({})
+  const [sort, setSort] = useRememberedAction(
+    'bangumi.catalog.sort',
+    catalogSorts,
+    'name',
+  )
+  const [direction, setDirection] = useRememberedAction(
+    'bangumi.catalog.direction',
+    ['asc', 'desc'] as const,
+    'asc',
+  )
   useEffect(() => {
     setQuery('')
     setDetail('')
@@ -59,15 +75,26 @@ export default function CatalogPane(props: Props) {
       props.onDetailOpened?.()
     }
   }, [props.detailRequest, props.onDetailOpened])
-  const shown = works
-    .filter(
+  const shown = sortCatalog(
+    works.filter(
       (w) =>
         w.kind === kind &&
         `${w.title} ${w.info?.localized_title || ''} ${w.info?.original_title || ''}`
           .toLocaleLowerCase()
           .includes(query.toLocaleLowerCase()),
-    )
-    .sort((a, b) => natural(a.title, b.title))
+    ),
+    sort,
+    direction === 'desc',
+  )
+  const now = new Date()
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
+  const airing =
+    kind === 'tv'
+      ? shown.flatMap((work) => {
+          const season = airingSeason(work, today)
+          return season === null ? [] : [{ work, season }]
+        })
+      : []
   if (detail && works.some((w) => w.id === detail))
     return (
       <WorkDetail
@@ -89,6 +116,30 @@ export default function CatalogPane(props: Props) {
             onChange={(e) => setQuery(e.target.value)}
           />
         </div>
+        <SelectField
+          className="catalog-sort"
+          aria-label={t('library.sort.label')}
+          value={sort}
+          onValueChange={(value) => {
+            setSort(value as CatalogSort)
+            setDirection(value === 'name' ? 'asc' : 'desc')
+          }}
+        >
+          {catalogSorts.map((value) => (
+            <SelectOption key={value} value={value}>
+              {t(`library.sort.${value}`)}
+            </SelectOption>
+          ))}
+        </SelectField>
+        <SelectField
+          className="catalog-direction"
+          aria-label={t('library.sort.direction')}
+          value={direction}
+          onValueChange={(value) => setDirection(value as 'asc' | 'desc')}
+        >
+          <SelectOption value="asc">{t('library.sort.asc')}</SelectOption>
+          <SelectOption value="desc">{t('library.sort.desc')}</SelectOption>
+        </SelectField>
         <Button
           variant="secondary"
           disabled={busy}
@@ -139,6 +190,31 @@ export default function CatalogPane(props: Props) {
             <p key={i}>{backendMessage(e)}</p>
           ))}
         </Disclosure>
+      )}
+      {!!airing.length && (
+        <section
+          className="catalog-airing"
+          aria-labelledby="catalog-airing-title"
+        >
+          <h2 id="catalog-airing-title">{t('library.airing.title')}</h2>
+          <p>{t('library.airing.description')}</p>
+          <div className="catalog-airing-list">
+            {airing.map(({ work, season }) => (
+              <Button
+                key={work.id}
+                variant="secondary"
+                className="catalog-airing-item"
+                onClick={() => {
+                  onWork(work.id)
+                  setDetail(work.id)
+                }}
+              >
+                <strong>{work.title}</strong>
+                <span>{t('library.airing.season', { season })}</span>
+              </Button>
+            ))}
+          </div>
+        </section>
       )}
       {shown.length ? (
         <div className={`work-grid ${kind === 'music' ? 'album-grid' : ''}`}>
@@ -196,7 +272,11 @@ export default function CatalogPane(props: Props) {
           })}
         </div>
       ) : (
-        <Empty title={query ? t('library.empty.noResults') : t('library.empty.noWorks')}>
+        <Empty
+          title={
+            query ? t('library.empty.noResults') : t('library.empty.noWorks')
+          }
+        >
           <Button variant="secondary" onClick={() => onAdd({ kind })}>
             {t('library.actions.addFromDatabase')}
           </Button>
@@ -217,13 +297,17 @@ export default function CatalogPane(props: Props) {
                 )}
               </div>
               <SelectField
-                aria-label={t('library.unbound.workLabel', { directory: f.name })}
+                aria-label={t('library.unbound.workLabel', {
+                  directory: f.name,
+                })}
                 value={bindings[f.path] || ''}
                 onValueChange={(value) =>
                   setBindings({ ...bindings, [f.path]: value })
                 }
               >
-                <SelectOption value="">{t('common.actions.chooseWork')}</SelectOption>
+                <SelectOption value="">
+                  {t('common.actions.chooseWork')}
+                </SelectOption>
                 {works
                   .filter((w) => w.kind === f.kind)
                   .map((w) => (

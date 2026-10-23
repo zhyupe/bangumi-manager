@@ -705,6 +705,7 @@ pub fn bind(store: &Store, req: BindRequest) -> Result<Work> {
             title.clone()
         };
         Work {
+            created_at: now(),
             info: s.info.clone(),
             seasons: vec![],
             category: String::new(),
@@ -1232,6 +1233,8 @@ mod tests {
             parent_id: String::new(),
         };
         let mut work = bind(&db, req(None)).unwrap();
+        assert!(!work.created_at.is_empty());
+        let created_at = work.created_at.clone();
         assert_eq!(work.episodes[0].season, 2);
         assert_eq!(work.info.language, "zh-CN");
         work.seasons[0].title = "第二章：帰還".into();
@@ -1239,6 +1242,7 @@ mod tests {
         work.episodes[0].number = 9;
         db.put("works", &work.id, &work).unwrap();
         let work = bind(&db, req(Some(work.id))).unwrap();
+        assert_eq!(work.created_at, created_at);
         assert_eq!(work.seasons[0].title, "第二章：帰還");
         assert_eq!(work.episodes[0].number, 9);
     }

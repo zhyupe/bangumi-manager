@@ -1371,5 +1371,15 @@
   "cue.sources.number": "Source {number}",
   "cue.status.submitted": "Task created. Select another CUE to continue.",
   "database.nfo.file": "NFO file",
-  "cue.sources.retained": "Keep originals; remove from the pending list after all tracks are imported"
+  "cue.sources.retained": "Keep originals; remove from the pending list after all tracks are imported",
+  "library.sort.label": "Display order",
+  "library.sort.name": "Name",
+  "library.sort.release": "Release date",
+  "library.sort.added": "Date added",
+  "library.sort.direction": "Sort direction",
+  "library.sort.asc": "Ascending",
+  "library.sort.desc": "Descending",
+  "library.airing.title": "Currently airing",
+  "library.airing.description": "Based on the synced schedule of the latest season. Sync metadata to refresh the schedule.",
+  "library.airing.season": "Season {season}"
 }

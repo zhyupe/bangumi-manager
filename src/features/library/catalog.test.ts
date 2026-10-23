@@ -1,6 +1,86 @@
 import { describe, expect, it } from 'vitest'
 import type { Asset, Episode, Season, Work } from '@/types'
-import { catalogCollection, catalogSeasons } from './catalog'
+import {
+  airingSeason,
+  catalogCollection,
+  catalogSeasons,
+  sortCatalog,
+} from './catalog'
+
+describe('catalog ordering and airing schedules', () => {
+  const item = (id: string, title: string, date = '', created_at = '') =>
+    ({
+      id,
+      title,
+      year: '',
+      kind: 'tv',
+      created_at,
+      info: { air_date: date },
+      episodes: [],
+      seasons: [],
+      bindings: [],
+    }) as unknown as Work
+
+  it('sorts naturally without mutating the source and keeps missing dates last in either direction', () => {
+    const items = [
+      item('a', 'Fictional 10', '2025-05-02', '2026-01-02T00:00:00Z'),
+      item('b', 'Fictional 2', '2025-05-01', '2026-01-03T00:00:00Z'),
+      item('c', 'Fictional 1'),
+    ]
+    const ids = (sort: 'name' | 'release' | 'added', desc: boolean) =>
+      sortCatalog(items, sort, desc).map((w) => w.id)
+    expect(ids('name', false)).toEqual(['c', 'b', 'a'])
+    expect(ids('name', true)).toEqual(['a', 'b', 'c'])
+    expect(ids('release', true)).toEqual(['a', 'b', 'c'])
+    expect(ids('release', false)).toEqual(['b', 'a', 'c'])
+    expect(ids('added', true)).toEqual(['b', 'a', 'c'])
+    expect(ids('added', false)).toEqual(['a', 'b', 'c'])
+    expect(items.map((w) => w.id)).toEqual(['a', 'b', 'c'])
+  })
+
+  it('falls back to release year and tolerates invalid dates', () => {
+    const older = { ...item('a', 'Fictional A', 'invalid'), year: '2024' }
+    const newer = item('b', 'Fictional B', '2025-01-01')
+    expect(
+      sortCatalog([older, newer], 'release', true).map((w) => w.id),
+    ).toEqual(['b', 'a'])
+  })
+
+  const scheduled = (season: number, number: number, date: string) =>
+    ({
+      season,
+      number,
+      kind: 0,
+      enabled: true,
+      binding_id: 'b',
+      info: { air_date: date },
+    }) as Episode
+  it('includes only the latest regular season during its known broadcast window', () => {
+    const w = item('a', 'Fictional Schedule')
+    w.episodes = [
+      scheduled(1, 1, '2026-01-01'),
+      scheduled(2, 1, '2026-10-01'),
+      scheduled(2, 2, '2026-10-30'),
+      scheduled(0, 1, '2027-01-01'),
+    ]
+    expect(airingSeason(w, '2026-10-23')).toBe(2)
+    expect(airingSeason(w, '2026-10-30')).toBe(2)
+    expect(airingSeason(w, '2026-10-31')).toBeNull()
+    expect(airingSeason(w, '2026-09-30')).toBeNull()
+    expect(airingSeason({ ...w, kind: 'movie' }, '2026-10-23')).toBeNull()
+    w.seasons = [{ number: 3 } as any]
+    expect(airingSeason(w, '2026-10-23')).toBeNull()
+  })
+
+  it('does not infer a schedule from missing dates or custom episode groups', () => {
+    const w = item('a', 'Fictional Schedule')
+    w.episodes = [scheduled(1, 1, ''), scheduled(1, 2, '2026-10-30')]
+    expect(airingSeason(w, '2026-10-23')).toBeNull()
+    w.episodes[0].info!.air_date = '2026-10-01'
+    w.bindings = [{ id: 'b', episode_group: { id: 'group' } } as any]
+    expect(airingSeason(w, '2026-10-23')).toBeNull()
+  })
+})
 
 const episode = (season: number, number: number, enabled = true) =>
   ({ season, number, enabled }) as Episode

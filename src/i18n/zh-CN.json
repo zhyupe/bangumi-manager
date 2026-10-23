@@ -1371,5 +1371,15 @@
   "cue.sources.number": "音源 {number}",
   "cue.status.submitted": "已创建任务，可选择其他 CUE 继续。",
   "database.nfo.file": "NFO 文件",
-  "cue.sources.retained": "保留原文件；全部入库后移出待整理列表"
+  "cue.sources.retained": "保留原文件；全部入库后移出待整理列表",
+  "library.sort.label": "展示顺序",
+  "library.sort.name": "按名称排序",
+  "library.sort.release": "按发布时间排序",
+  "library.sort.added": "按添加时间排序",
+  "library.sort.direction": "排序方向",
+  "library.sort.asc": "升序",
+  "library.sort.desc": "降序",
+  "library.airing.title": "正在更新",
+  "library.airing.description": "根据已同步的最新一季播出排期展示；同步资料可更新排期。",
+  "library.airing.season": "第 {season} 季"
 }

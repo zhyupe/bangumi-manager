@@ -298,6 +298,7 @@ pub(crate) fn load(
     }
     let info = main.info(language)?;
     let mut w = Work {
+        created_at: now(),
         id: id(),
         kind: kind.into(),
         title: title.clone(),

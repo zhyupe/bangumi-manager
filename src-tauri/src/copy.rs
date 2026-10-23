@@ -1917,6 +1917,7 @@ mod tests {
     }
     fn work() -> Work {
         Work {
+            created_at: String::new(),
             info: MediaInfo::default(),
             seasons: vec![],
             category: String::new(),

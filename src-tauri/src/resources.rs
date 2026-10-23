@@ -794,6 +794,7 @@ mod tests {
             }
             store.put("settings", "main", &s).unwrap();
             let work = Work {
+                created_at: String::new(),
                 info: MediaInfo::default(),
                 seasons: vec![],
                 category: String::new(),

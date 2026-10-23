@@ -1130,6 +1130,7 @@ a:focus-visible {
 }
 .catalog-search {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   align-items: center;
   margin: 0 0 15px;
@@ -1137,9 +1138,46 @@ a:focus-visible {
 .catalog-search-input {
   display: flex;
   align-items: center;
-  flex: 1;
+  flex: 1 1 220px;
   gap: 8px;
   min-width: 0;
+}
+.catalog-search .catalog-sort,
+.catalog-search .catalog-direction {
+  width: auto;
+}
+.catalog-airing {
+  margin: 20px 0 28px;
+}
+.catalog-airing h2 {
+  font-size: 16px;
+  font-weight: 600;
+}
+.catalog-airing p {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin: 6px 0 12px;
+}
+.catalog-airing-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
+  gap: 10px;
+}
+.catalog-airing-item {
+  height: auto;
+  min-width: 0;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 12px 16px;
+  white-space: normal;
+  text-align: start;
+}
+.catalog-airing-item strong {
+  overflow-wrap: anywhere;
+}
+.catalog-airing-item span {
+  color: var(--text-muted);
+  font-size: 12px;
 }
 .catalog-search-input input {
   width: 100%;

@@ -26,6 +26,7 @@ export interface Episode {
 }
 
 export interface Work {
+  created_at?: string
   info?: MediaInfo
   seasons?: Season[]
   category?: string
