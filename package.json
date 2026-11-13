@@ -16,7 +16,7 @@
     "preview": "vite preview",
     "tauri": "tauri",
     "test": "vitest run",
-    "check": "tsc --noEmit",
+    "check": "tsc --noEmit && tsc --project tsconfig.node.json --noEmit",
     "notices": "node scripts/third-party-notices.mjs",
     "test:core": "cargo test --manifest-path src-tauri/Cargo.toml",
     "test:e2e": "playwright test",

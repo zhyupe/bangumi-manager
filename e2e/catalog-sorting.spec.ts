@@ -3,7 +3,7 @@ import { sourceFixture } from "./source-fixture";
 
 test("catalog remembers sorting and opens a currently airing title", async ({
   page,
-}) => {
+}, testInfo) => {
   await sourceFixture(page, ["Fictional.S01E01.mkv"]);
   await page.evaluate(() => {
     const win = window as any;
@@ -74,4 +74,3 @@ test("catalog remembers sorting and opens a currently airing title", async ({
     page.getByText("Fictional 2", { exact: true }).first(),
   ).toBeVisible();
 });
-

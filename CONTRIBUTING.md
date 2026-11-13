@@ -20,7 +20,7 @@ pnpm test:core
 pnpm test:e2e --workers=4
 ```
 
-Browser tests use Microsoft Edge and mocked Tauri commands. Rust tests use temporary directories for real file operations. If your environment configures a proxy, include `localhost` and `127.0.0.1` in `NO_PROXY` so local mock-server tests can connect directly. Tests requiring a live provider, SMB share, or ffprobe are opt-in; read the corresponding test's environment variables before enabling it. Do not commit credentials, real media titles, or provider responses containing personal library information.
+`pnpm check` type-checks application code, browser tests, and TypeScript configuration files. Browser tests use Microsoft Edge and mocked Tauri commands. Rust tests use temporary directories for real file operations. If your environment configures a proxy, include `localhost` and `127.0.0.1` in `NO_PROXY` so local mock-server tests can connect directly. Tests requiring a live provider, SMB share, or ffprobe are opt-in; read the corresponding test's environment variables before enabling it. Do not commit credentials, real media titles, or provider responses containing personal library information.
 
 Before a release build, increment the application version consistently in `package.json`, `src-tauri/Cargo.toml`, the application's entry in `src-tauri/Cargo.lock`, and any explicit version in `src-tauri/tauri.conf.json` (the default configuration reads `package.json`).
 
