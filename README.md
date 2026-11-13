@@ -51,6 +51,8 @@ Review each task before execution. Moving removes the source after the required 
 
 Replacement affects only the selected old files. Backups are retained until you explicitly clean them up; cleanup is irreversible. Interrupted tasks retain recovery information. In particular, preserve the temporary files and checkpoints of an unfinished rename, then resume it from **Tasks**. Restarting the application does not automatically continue the queue.
 
+Unsaved settings survive page navigation during the session; save them before closing the application.
+
 Library scans read file information and retain the last results for offline directories. The application writes NFO metadata; configure your media software to read local metadata and use matching episode ordering. Naming, NFO fields, and multi-part playback support vary by application. Library scanning and playback remain under your media software's control. General media transcoding remains external. CUE tasks write tags to newly generated tracks and never alter source audio tags.
 
 ## Local data and privacy

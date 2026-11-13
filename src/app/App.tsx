@@ -85,6 +85,16 @@ export default function App() {
     [catalogKind, setCatalogKind] = useState('tv'),
     [workId, setWorkId] = useState(''),
     [planId, setPlanId] = useState('')
+  const [settingsDraft, setSettingsDraft] = useState(empty.settings)
+  const previousSettings = useRef(empty.settings)
+  useEffect(() => {
+    const previous = previousSettings.current
+    const saved = { ...empty.settings, ...data.settings }
+    setSettingsDraft((current) =>
+      JSON.stringify(current) === JSON.stringify(previous) ? saved : current,
+    )
+    previousSettings.current = saved
+  }, [data.settings])
   const [catalogRequest, setCatalogRequest] = useState('')
   const [resourceTabsContainer, setResourceTabsContainer] = useState<HTMLDivElement | null>(null)
   const [libraryDrop, setLibraryDrop] = useState<LibraryDrop | null>(null)
@@ -608,6 +618,8 @@ export default function App() {
             {page === 'settings' && (
               <SettingsPane
                 settings={data.settings}
+                draft={settingsDraft}
+                setDraft={setSettingsDraft}
                 dataDir={data.data_dir}
                 run={run}
                 busy={blocked}

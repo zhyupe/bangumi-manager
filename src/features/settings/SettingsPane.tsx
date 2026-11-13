@@ -1,6 +1,6 @@
 import { CheckIcon } from '@radix-ui/react-icons'
 import { open } from '@tauri-apps/plugin-dialog'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
 import { Disclosure, DisclosureTrigger } from '@/components/disclosure'
 import { Field } from '@/components/field'
 import { FilePath, OpenPathButton } from '@/components/file-path'
@@ -27,18 +27,21 @@ import DiagnosticsPane from './DiagnosticsPane'
 import { audioToolDirectory, audioToolPaths } from './audio-tool-paths'
 export default function SettingsPane({
   settings,
+  draft,
+  setDraft,
   dataDir,
   run,
   busy,
   onSaved,
 }: {
   settings: Settings
+  draft: Settings
+  setDraft: Dispatch<SetStateAction<Settings>>
   dataDir: string
   run: Run
   busy: boolean
   onSaved: () => Promise<void>
 }) {
-  const [draft, setDraft] = useState({ ...empty.settings, ...settings })
   const [toolVersion, setToolVersion] = useState('')
   const toolDirectory = audioToolDirectory(draft.ffmpeg || '', draft.ffprobe)
   const [toolDirectoryInput, setToolDirectoryInput] = useState(toolDirectory || '')
@@ -58,7 +61,6 @@ export default function SettingsPane({
   )
   const [preview, setPreview] = useState<Record<string, string>>({}),
     [templateError, setTemplateError] = useState('')
-  useEffect(() => setDraft({ ...empty.settings, ...settings }), [settings])
   useEffect(() => {
     let active = true
     const timer = setTimeout(() => {

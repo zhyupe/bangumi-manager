@@ -99,13 +99,24 @@ export async function sourceFixture(
         queue: { ids: [], paused: false, error: "" },
       };
       let serial = 0;
+      const callbacks = new Map<number, (event: any) => void>();
+      const listeners = new Map<string, number[]>();
+      (window as any).__sourceEmit = (event: string, payload: unknown) => {
+        for (const id of listeners.get(event) || [])
+          callbacks.get(id)?.({ event, payload });
+      };
       (window as any).__TAURI_INTERNALS__ = {
         metadata: {
           currentWindow: { label: "main" },
           currentWebview: { label: "main" },
         },
-        transformCallback: () => ++serial,
-        unregisterCallback: () => {},
+        transformCallback: (callback: (event: any) => void) => {
+          callbacks.set(++serial, callback);
+          return serial;
+        },
+        unregisterCallback: (id: number) => {
+          callbacks.delete(id);
+        },
         invoke: async (command: string, args: any = {}) => {
           calls.push({ command, args });
           if (command === "snapshot") return structuredClone(state);
@@ -118,7 +129,13 @@ export async function sourceFixture(
             ].includes(command)
           )
             return [];
-          if (command === "plugin:event|listen") return args.handler;
+          if (command === "plugin:event|listen") {
+            listeners.set(args.event, [
+              ...(listeners.get(args.event) || []),
+              args.handler,
+            ]);
+            return args.handler;
+          }
           if (
             ["plugin:event|unlisten", "record_frontend_timing"].includes(
               command,
@@ -129,7 +146,13 @@ export async function sourceFixture(
         },
       };
       (window as any).__TAURI_EVENT_PLUGIN_INTERNALS__ = {
-        unregisterListener: () => {},
+        unregisterListener: (event: string, id: number) => {
+          listeners.set(
+            event,
+            (listeners.get(event) || []).filter((value) => value !== id),
+          );
+          callbacks.delete(id);
+        },
       };
     },
     { names, parent, episodesPerSeason, extraPaths, settingsOverrides },
