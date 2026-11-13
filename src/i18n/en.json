@@ -1,4 +1,8 @@
 {
+  "errors.scan.alreadyRunning": "A source scan is already running. Cancel it or wait for it to finish.",
+  "organize.scan.cancel": "Cancel scan",
+  "organize.scan.cancelling": "Cancelling…",
+  "organize.scan.cancelled": "Scan cancelled. Discovered files were retained.",
   "app.library.configure": "Configure library",
   "app.library.notConfigured": "No library configured",
   "app.library.read": "Loading local catalog",

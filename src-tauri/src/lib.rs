@@ -120,12 +120,24 @@ async fn scan_files(
         "ipc.scan_files",
         trace_id,
         move || {
-            scan::scan_sources(&s, paths, |n| {
+            let started = std::cell::Cell::new(false);
+            let result = scan::scan_sources(&s, paths, |n| {
+                if !started.replace(true) {
+                    let _ = app.emit("scan-active", true);
+                }
                 let _ = app.emit("scan-progress", n);
-            })
+            });
+            if started.get() {
+                let _ = app.emit("scan-active", false);
+            }
+            result
         },
     )
     .await
+}
+#[tauri::command]
+fn cancel_source_scan(state: State<'_, AppState>) {
+    state.source_scan_cancel.store(true, Ordering::SeqCst);
 }
 #[tauri::command]
 async fn clear_sources(state: State<'_, AppState>, trace_id: Option<String>) -> Result<()> {
@@ -134,7 +146,13 @@ async fn clear_sources(state: State<'_, AppState>, trace_id: Option<String>) -> 
         state.diagnostics.clone(),
         "ipc.clear_sources",
         trace_id,
-        move || state.clear("sources"),
+        move || {
+            let _scan = state
+                .source_scan
+                .try_lock()
+                .map_err(|_| "errors.scan.alreadyRunning")?;
+            state.clear("sources")
+        },
     )
     .await
 }
@@ -859,6 +877,7 @@ pub fn run() {
             snapshot,
             save_settings,
             scan_files,
+            cancel_source_scan,
             nfo_sync::inspect_source_nfos,
             nfo_sync::sync_source_nfos,
             clear_sources,

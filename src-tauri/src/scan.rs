@@ -5,6 +5,7 @@ use std::{
     io::Read,
     path::Path,
     process::{Command, Stdio},
+    sync::atomic::Ordering,
     thread,
     time::{Duration, Instant},
 };
@@ -15,6 +16,12 @@ pub fn scan_sources(
     inputs: Vec<String>,
     progress: impl Fn(usize),
 ) -> Result<ScanResult> {
+    let _scan = store
+        .source_scan
+        .try_lock()
+        .map_err(|_| "errors.scan.alreadyRunning")?;
+    store.source_scan_cancel.store(false, Ordering::SeqCst);
+    progress(0);
     store.diagnostics.measure(
         "files.scan",
         serde_json::json!({"roots":inputs.len()}),
@@ -41,7 +48,13 @@ pub fn scan_sources(
                     .unwrap();
             let mut files = BTreeMap::new();
             let mut errors = vec![];
-            for input in inputs {
+            let mut batch = Vec::new();
+            let mut cancelled = false;
+            'inputs: for input in inputs {
+                if store.source_scan_cancel.load(Ordering::SeqCst) {
+                    cancelled = true;
+                    break;
+                }
                 let root = match paths::normalize(&input)
                     .and_then(|p| fs::canonicalize(p).map_err(|e| e.to_string()))
                 {
@@ -63,6 +76,10 @@ pub fn scan_sources(
                             .unwrap_or(true)
                     });
                 for entry in iter {
+                    if store.source_scan_cancel.load(Ordering::SeqCst) {
+                        cancelled = true;
+                        break 'inputs;
+                    }
                     let entry = match entry {
                         Ok(v) => v,
                         Err(e) => {
@@ -108,15 +125,25 @@ pub fn scan_sources(
                             file.probe = old.probe.filter(|p| p.version == PROBE_VERSION);
                         }
                     }
-                    store.put("sources", &paths::key(path), &file)?;
+                    batch.push((
+                        "sources",
+                        paths::key(path),
+                        serde_json::to_string(&file).map_err(|e| e.to_string())?,
+                    ));
                     files.insert(paths::key(path), file);
-                    if files.len() % 100 == 0 {
+                    if batch.len() == 100 {
+                        store.put_documents(std::mem::take(&mut batch))?;
                         progress(files.len());
                     }
                 }
             }
+            if !batch.is_empty() {
+                store.put_documents(batch)?;
+            }
+            cancelled |= store.source_scan_cancel.load(Ordering::SeqCst);
             progress(files.len());
             Ok(ScanResult {
+                cancelled,
                 files: files.into_values().collect(),
                 errors,
             })
@@ -882,5 +909,76 @@ mod performance_tests {
             index.available && index.errors.is_empty(),
             "Library profile requires all roots to be available and readable",
         );
+    }
+}
+
+#[cfg(test)]
+mod source_scan_tests {
+    use super::*;
+
+    #[test]
+    fn cancelled_scan_keeps_committed_files_and_can_restart() {
+        let temp = tempfile::tempdir().unwrap();
+        let store = Store::open(temp.path().join("state")).unwrap();
+        let input = temp.path().join("input");
+        fs::create_dir(&input).unwrap();
+        for n in 0..205 {
+            fs::write(input.join(format!("Fictional.{n:03}.mkv")), b"media").unwrap();
+        }
+        let result = scan_sources(&store, vec![paths::display(&input)], |count| {
+            if count == 100 {
+                assert_eq!(store.list::<SourceFile>("sources").unwrap().len(), 100);
+                store.source_scan_cancel.store(true, Ordering::SeqCst);
+            }
+        })
+        .unwrap();
+        assert!(result.cancelled);
+        assert_eq!(result.files.len(), 100);
+        assert_eq!(store.list::<SourceFile>("sources").unwrap().len(), 100);
+        let mut cached = result.files[0].clone();
+        cached.probe = Some(Probe {
+            version: PROBE_VERSION,
+            width: Some(1920),
+            ..Default::default()
+        });
+        store
+            .put("sources", &paths::key(Path::new(&cached.path)), &cached)
+            .unwrap();
+        let result = scan_sources(&store, vec![paths::display(&input)], |_| {}).unwrap();
+        assert!(!result.cancelled);
+        assert_eq!(result.files.len(), 205);
+        assert_eq!(store.list::<SourceFile>("sources").unwrap().len(), 205);
+        assert_eq!(
+            result
+                .files
+                .iter()
+                .find(|f| f.path == cached.path)
+                .unwrap()
+                .probe
+                .as_ref()
+                .unwrap()
+                .width,
+            Some(1920)
+        );
+        assert_eq!(fs::read_dir(input).unwrap().count(), 205);
+    }
+
+    #[test]
+    fn scan_cancellation_before_traversal_and_concurrent_scan_are_safe() {
+        let temp = tempfile::tempdir().unwrap();
+        let store = Store::open(temp.path().join("state")).unwrap();
+        let input = temp.path().join("Fictional.mkv");
+        fs::write(&input, b"media").unwrap();
+        let result = scan_sources(&store, vec![paths::display(&input)], |_| {
+            assert!(scan_sources(&store, vec![], |_| {}).is_err());
+            store.source_scan_cancel.store(true, Ordering::SeqCst);
+        })
+        .unwrap();
+        assert!(result.cancelled);
+        assert!(result.files.is_empty());
+        let result = scan_sources(&store, vec![paths::display(&input)], |_| {}).unwrap();
+        assert!(!result.cancelled);
+        assert_eq!(result.files.len(), 1);
+        assert_eq!(store.list::<SourceFile>("sources").unwrap().len(), 1);
     }
 }

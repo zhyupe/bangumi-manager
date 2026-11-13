@@ -1,4 +1,8 @@
 {
+  "errors.scan.alreadyRunning": "源目录扫描正在进行，请先取消或等待完成",
+  "organize.scan.cancel": "取消扫描",
+  "organize.scan.cancelling": "正在取消…",
+  "organize.scan.cancelled": "扫描已取消，已发现的文件已保留",
   "app.library.configure": "配置资料库",
   "app.library.notConfigured": "尚未设置资料库",
   "app.library.read": "读取本地目录",

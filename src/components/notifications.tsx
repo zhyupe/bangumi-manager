@@ -109,11 +109,13 @@ export function Notifications({
   dismiss,
   activity,
   progress,
+  activityAction,
 }: {
   items: Notice[]
   dismiss: (id: string) => void
   activity?: string
   progress?: string
+  activityAction?: { label: string; disabled: boolean; run: () => void }
 }) {
   return createPortal(
     <section
@@ -132,6 +134,11 @@ export function Notifications({
           <div className="floating-notice-body">
             <strong>{activity}</strong>
             {progress && <div className="floating-notice-text">{progress}</div>}
+            {activityAction && (
+              <Button size="sm" variant="outline" disabled={activityAction.disabled} onClick={activityAction.run}>
+                {activityAction.label}
+              </Button>
+            )}
           </div>
         </Alert>
       )}

@@ -95,6 +95,8 @@ export default function App() {
     )
     previousSettings.current = saved
   }, [data.settings])
+  const [scanning, setScanning] = useState(false)
+  const [scanCancelling, setScanCancelling] = useState(false)
   const [catalogRequest, setCatalogRequest] = useState('')
   const [resourceTabsContainer, setResourceTabsContainer] = useState<HTMLDivElement | null>(null)
   const [libraryDrop, setLibraryDrop] = useState<LibraryDrop | null>(null)
@@ -308,10 +310,13 @@ export default function App() {
   }
   const scanPaths = async (paths: string[]) => {
     await run(t('organize.scan.action'), async () => {
-      const result = await call<{ errors: string[] }>('scan_files', { paths })
+      const result = await call<{ errors: string[]; cancelled?: boolean }>(
+        'scan_files', { paths },
+      )
       await reload()
       if (result.errors.length) notify('warning', result.errors.join('\n'))
-      else setNotice(t('organize.scan.complete'))
+      if (result.cancelled) notify('warning', t('organize.scan.cancelled'))
+      else if (!result.errors.length) setNotice(t('organize.scan.complete'))
     })
   }
   const onDrop = useRef<(paths: string[], target: Element | null) => void>(
@@ -355,6 +360,12 @@ export default function App() {
         .then((fn) => (disposed ? fn() : cleanups.push(fn)))
         .catch((e) => setMessage(String(e)))
     }
+    retain(
+      listen<boolean>('scan-active', (e) => {
+        setScanning(e.payload)
+        setScanCancelling(false)
+      }),
+    )
     retain(
       listen<number>('scan-progress', (e) =>
         setProgress(t('organize.scan.fileCount', { count: e.payload })),
@@ -673,6 +684,17 @@ export default function App() {
           dismiss={dismiss}
           activity={busy || (running ? t('common.status.processing') : '')}
           progress={progress}
+          activityAction={scanning ? {
+            label: t(scanCancelling ? 'organize.scan.cancelling' : 'organize.scan.cancel'),
+            disabled: scanCancelling,
+            run: () => {
+              setScanCancelling(true)
+              void call('cancel_source_scan').catch((e) => {
+                setScanCancelling(false)
+                setMessage(String(e))
+              })
+            },
+          } : undefined}
         />
         {dragging && (
           <div className="drop-overlay">

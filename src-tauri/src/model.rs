@@ -210,6 +210,7 @@ pub struct SourceFile {
 }
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ScanResult {
+    pub cancelled: bool,
     pub files: Vec<SourceFile>,
     pub errors: Vec<String>,
 }

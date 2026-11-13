@@ -86,12 +86,18 @@ export function useLibraryImport(
           extra: false,
         }))
       } else {
-        const result = await call<{ files: SourceFile[]; errors: string[] }>(
-          'scan_files',
-          { paths },
-        )
+        const result = await call<{
+          files: SourceFile[]
+          errors: string[]
+          cancelled?: boolean
+        }>('scan_files', { paths })
         if (version !== generation.current) return
-        setScanErrors(result.errors)
+        setScanErrors(
+          result.cancelled
+            ? [...result.errors, t('organize.scan.cancelled')]
+            : result.errors,
+        )
+        if (result.cancelled && !result.files.length) return
         if (!result.files.length)
           throw new Error(t('library.extras.noFiles'))
         incoming = result.files.map((file) => ({

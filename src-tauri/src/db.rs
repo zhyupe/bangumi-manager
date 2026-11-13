@@ -19,6 +19,8 @@ pub struct Store {
     // Serialize task start, stop requests and persisted progress.
     pub active_plan: Mutex<Option<String>>,
     pub library_scan: Mutex<()>,
+    pub source_scan: Mutex<()>,
+    pub source_scan_cancel: AtomicBool,
     pub probe_running: AtomicBool,
     pub probe_cancel: AtomicBool,
     pub cue_running: AtomicBool,
@@ -46,6 +48,8 @@ impl Store {
             cancel: AtomicBool::new(false),
             active_plan: Mutex::new(None),
             library_scan: Mutex::new(()),
+            source_scan: Mutex::new(()),
+            source_scan_cancel: AtomicBool::new(false),
             probe_running: AtomicBool::new(false),
             probe_cancel: AtomicBool::new(false),
             cue_running: AtomicBool::new(false),
