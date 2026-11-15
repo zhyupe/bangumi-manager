@@ -50,6 +50,10 @@ windows-sys = { version = "0.59", features = ["Win32_Storage_FileSystem", "Win32
 tempfile = "3"
 
 
+[profile.dev]
+debug = "line-tables-only"
+incremental = true
+
 # Read the optimization guideline for more details: https://tauri.app/concept/size/#cargo-configuration
 [profile.release]
 codegen-units = 1
