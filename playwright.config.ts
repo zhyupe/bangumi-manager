@@ -17,7 +17,9 @@ export default defineConfig({
     channel: "msedge",
   },
   webServer: {
-    command: "pnpm dev --host 127.0.0.1",
+    command: process.env.CI
+      ? "pnpm exec vite build && pnpm preview --host 127.0.0.1 --port 1420 --strictPort"
+      : "pnpm dev --host 127.0.0.1",
     url: "http://127.0.0.1:1420",
     reuseExistingServer: !process.env.CI,
   },

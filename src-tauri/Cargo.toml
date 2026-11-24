@@ -1,6 +1,6 @@
 [package]
 name = "bangumi-manager"
-version = "0.3.2"
+version = "0.3.3"
 description = "A Windows desktop media organizer with reviewed file operations"
 license = "GPL-3.0-only"
 repository = "https://github.com/zhyupe/bangumi-manager"
