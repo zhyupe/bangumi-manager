@@ -102,11 +102,16 @@ pub fn contained(path: &Path, root: &Path) -> bool {
     p == r || p.starts_with(&(r + "/"))
 }
 pub fn resolved(path: &Path) -> Result<PathBuf> {
-    if path.exists() {
-        return fs::canonicalize(path).map_err(|e| format!("{}：{}", display(path), e));
+    if let Some((parent, name)) = path.parent().zip(path.file_name()) {
+        match fs::symlink_metadata(path) {
+            Ok(_) => {}
+            Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
+                return Ok(resolved(parent)?.join(name));
+            }
+            Err(e) => return Err(format!("{}：{e}", display(path))),
+        }
     }
-    let parent = path.parent().ok_or("找不到路径的父目录")?;
-    Ok(resolved(parent)?.join(path.file_name().ok_or("无效的路径")?))
+    fs::canonicalize(path).map_err(|e| format!("{}：{e}", display(path)))
 }
 pub fn safe_target(path: &Path, root: &Path) -> Result<()> {
     if !contained(&resolved(path)?, &resolved(root)?) || key(path) == key(root) {

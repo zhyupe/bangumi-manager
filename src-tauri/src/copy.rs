@@ -1834,18 +1834,49 @@ mod tests {
         #[test]
         fn preview_does_not_create_task_and_submit_is_idempotent() {
             let f = Fixture::new();
+            let root = f._dir.path().join("new").join("Library");
+            let mut settings = f.store.settings().unwrap();
+            settings.output_root = paths::display(&root);
+            f.store.put("settings", "main", &settings).unwrap();
             let m = f.media("Fictional.E01.mkv", b"media", "1");
             let p = preview::preview(&f.store, vec![m], |_, _| {}).unwrap();
             assert!(f.store.list::<Plan>("plans").unwrap().is_empty());
-            assert!(!Path::new(&p.rows[0].target).exists());
+            assert!(!root.exists());
             let created = preview::submit(&f.store, &p.id, choices(&p, "copy")).unwrap();
             assert_eq!(created.id, p.id);
             assert_eq!(created.state, "draft");
             assert!(!Path::new(&p.rows[0].target).exists());
-            assert!(f.store.get::<Plan>("organize_previews", &p.id).unwrap().is_none());
+            assert!(f
+                .store
+                .get::<Plan>("organize_previews", &p.id)
+                .unwrap()
+                .is_none());
             assert_eq!(preview::submit(&f.store, &p.id, vec![]).unwrap().id, p.id);
             assert_eq!(f.store.list::<Plan>("plans").unwrap().len(), 1);
             assert_eq!(f.run(&created).state, "complete");
+            assert!(paths::contained(Path::new(&p.rows[0].target), &root));
+            assert_eq!(fs::read(&p.rows[0].target).unwrap(), b"media");
+        }
+
+        #[cfg(windows)]
+        #[test]
+        fn preview_reports_the_filesystem_error_for_an_unavailable_drive() {
+            let Some(drive) = (b'D'..=b'Z')
+                .rev()
+                .map(|letter| PathBuf::from(format!("{}:\\", char::from(letter))))
+                .find(|drive| !drive.exists())
+            else {
+                return;
+            };
+            let f = Fixture::new();
+            let mut settings = f.store.settings().unwrap();
+            settings.output_root = paths::display(&drive.join("Fictional Library"));
+            f.store.put("settings", "main", &settings).unwrap();
+            let source = f.media("Fictional.E01.mkv", b"media", "1");
+            let error = preview::preview(&f.store, vec![source], |_, _| {}).unwrap_err();
+            assert!(error.starts_with(&paths::display(&drive)), "{error}");
+            assert!(error.contains("(os error "), "{error}");
+            assert!(f.store.list::<Plan>("plans").unwrap().is_empty());
         }
 
         #[test]
